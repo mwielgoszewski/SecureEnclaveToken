@@ -1,0 +1,571 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD60D39425D58D6F0075CC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D39325D58D6F0075CC34 /* AppDelegate.swift */; };
+		BD60D39625D58D6F0075CC34 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D39525D58D6F0075CC34 /* ContentView.swift */; };
+		BD60D39825D58D6F0075CC34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD60D39725D58D6F0075CC34 /* Assets.xcassets */; };
+		BD60D39B25D58D6F0075CC34 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD60D39A25D58D6F0075CC34 /* Preview Assets.xcassets */; };
+		BD60D39E25D58D6F0075CC34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD60D39C25D58D6F0075CC34 /* Main.storyboard */; };
+		BD60D3AE25D58D9A0075CC34 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD60D3AD25D58D9A0075CC34 /* Cocoa.framework */; };
+		BD60D3B125D58D9A0075CC34 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D3B025D58D9A0075CC34 /* Token.swift */; };
+		BD60D3B325D58D9A0075CC34 /* TokenDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D3B225D58D9A0075CC34 /* TokenDriver.swift */; };
+		BD60D3B525D58D9A0075CC34 /* TokenSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D3B425D58D9A0075CC34 /* TokenSession.swift */; };
+		BD60D3BA25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BD60D3AB25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BD60D3C225D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D3C125D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift */; };
+		BDE0445E25E0228C00C984E3 /* CertificateSigningRequest in Frameworks */ = {isa = PBXBuildFile; productRef = BDE0445D25E0228C00C984E3 /* CertificateSigningRequest */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BD60D3B825D58D9A0075CC34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD60D38825D58D6F0075CC34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD60D3AA25D58D9A0075CC34;
+			remoteInfo = SecureEnclaveTokenExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BD60D3BE25D58D9A0075CC34 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BD60D3BA25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD6D6EE625DD910E00C507B4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BD60D39025D58D6F0075CC34 /* SecureEnclaveToken.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecureEnclaveToken.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD60D39325D58D6F0075CC34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BD60D39525D58D6F0075CC34 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BD60D39725D58D6F0075CC34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BD60D39A25D58D6F0075CC34 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BD60D39D25D58D6F0075CC34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BD60D39F25D58D6F0075CC34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD60D3A025D58D6F0075CC34 /* SecureEnclaveToken.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecureEnclaveToken.entitlements; sourceTree = "<group>"; };
+		BD60D3AB25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SecureEnclaveTokenExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD60D3AD25D58D9A0075CC34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BD60D3B025D58D9A0075CC34 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		BD60D3B225D58D9A0075CC34 /* TokenDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDriver.swift; sourceTree = "<group>"; };
+		BD60D3B425D58D9A0075CC34 /* TokenSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSession.swift; sourceTree = "<group>"; };
+		BD60D3B625D58D9A0075CC34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD60D3B725D58D9A0075CC34 /* SecureEnclaveTokenExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecureEnclaveTokenExtension.entitlements; sourceTree = "<group>"; };
+		BD60D3C125D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveTokenUtils.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD60D38D25D58D6F0075CC34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDE0445E25E0228C00C984E3 /* CertificateSigningRequest in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD60D3A825D58D9A0075CC34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD60D3AE25D58D9A0075CC34 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD60D38725D58D6F0075CC34 = {
+			isa = PBXGroup;
+			children = (
+				BD60D39225D58D6F0075CC34 /* SecureEnclaveToken */,
+				BD60D3AF25D58D9A0075CC34 /* SecureEnclaveTokenExtension */,
+				BD60D3AC25D58D9A0075CC34 /* Frameworks */,
+				BD60D39125D58D6F0075CC34 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BD60D39125D58D6F0075CC34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD60D39025D58D6F0075CC34 /* SecureEnclaveToken.app */,
+				BD60D3AB25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD60D39225D58D6F0075CC34 /* SecureEnclaveToken */ = {
+			isa = PBXGroup;
+			children = (
+				BD60D39325D58D6F0075CC34 /* AppDelegate.swift */,
+				BD60D39525D58D6F0075CC34 /* ContentView.swift */,
+				BD60D3C125D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift */,
+				BD60D39725D58D6F0075CC34 /* Assets.xcassets */,
+				BD60D39C25D58D6F0075CC34 /* Main.storyboard */,
+				BD60D39F25D58D6F0075CC34 /* Info.plist */,
+				BD60D3A025D58D6F0075CC34 /* SecureEnclaveToken.entitlements */,
+				BD60D39925D58D6F0075CC34 /* Preview Content */,
+			);
+			path = SecureEnclaveToken;
+			sourceTree = "<group>";
+		};
+		BD60D39925D58D6F0075CC34 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BD60D39A25D58D6F0075CC34 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BD60D3AC25D58D9A0075CC34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD60D3AD25D58D9A0075CC34 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD60D3AF25D58D9A0075CC34 /* SecureEnclaveTokenExtension */ = {
+			isa = PBXGroup;
+			children = (
+				BD60D3B025D58D9A0075CC34 /* Token.swift */,
+				BD60D3B225D58D9A0075CC34 /* TokenDriver.swift */,
+				BD60D3B425D58D9A0075CC34 /* TokenSession.swift */,
+				BD60D3B625D58D9A0075CC34 /* Info.plist */,
+				BD60D3B725D58D9A0075CC34 /* SecureEnclaveTokenExtension.entitlements */,
+			);
+			path = SecureEnclaveTokenExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BD60D38F25D58D6F0075CC34 /* SecureEnclaveToken */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD60D3A325D58D6F0075CC34 /* Build configuration list for PBXNativeTarget "SecureEnclaveToken" */;
+			buildPhases = (
+				BD60D38C25D58D6F0075CC34 /* Sources */,
+				BD60D38D25D58D6F0075CC34 /* Frameworks */,
+				BD60D38E25D58D6F0075CC34 /* Resources */,
+				BD60D3BE25D58D9A0075CC34 /* Embed App Extensions */,
+				BD6D6EE625DD910E00C507B4 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BD60D3B925D58D9A0075CC34 /* PBXTargetDependency */,
+			);
+			name = SecureEnclaveToken;
+			packageProductDependencies = (
+				BDE0445D25E0228C00C984E3 /* CertificateSigningRequest */,
+			);
+			productName = SecureEnclaveToken;
+			productReference = BD60D39025D58D6F0075CC34 /* SecureEnclaveToken.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BD60D3AA25D58D9A0075CC34 /* SecureEnclaveTokenExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD60D3BB25D58D9A0075CC34 /* Build configuration list for PBXNativeTarget "SecureEnclaveTokenExtension" */;
+			buildPhases = (
+				BD60D3A725D58D9A0075CC34 /* Sources */,
+				BD60D3A825D58D9A0075CC34 /* Frameworks */,
+				BD60D3A925D58D9A0075CC34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SecureEnclaveTokenExtension;
+			productName = SecureEnclaveTokenExtension;
+			productReference = BD60D3AB25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD60D38825D58D6F0075CC34 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					BD60D38F25D58D6F0075CC34 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					BD60D3AA25D58D9A0075CC34 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = BD60D38B25D58D6F0075CC34 /* Build configuration list for PBXProject "SecureEnclaveToken" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BD60D38725D58D6F0075CC34;
+			packageReferences = (
+				BDE0445C25E0228C00C984E3 /* XCRemoteSwiftPackageReference "CertificateSigningRequest" */,
+			);
+			productRefGroup = BD60D39125D58D6F0075CC34 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD60D38F25D58D6F0075CC34 /* SecureEnclaveToken */,
+				BD60D3AA25D58D9A0075CC34 /* SecureEnclaveTokenExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BD60D38E25D58D6F0075CC34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD60D39E25D58D6F0075CC34 /* Main.storyboard in Resources */,
+				BD60D39B25D58D6F0075CC34 /* Preview Assets.xcassets in Resources */,
+				BD60D39825D58D6F0075CC34 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD60D3A925D58D9A0075CC34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD60D38C25D58D6F0075CC34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD60D39625D58D6F0075CC34 /* ContentView.swift in Sources */,
+				BD60D39425D58D6F0075CC34 /* AppDelegate.swift in Sources */,
+				BD60D3C225D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD60D3A725D58D9A0075CC34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD60D3B525D58D9A0075CC34 /* TokenSession.swift in Sources */,
+				BD60D3B125D58D9A0075CC34 /* Token.swift in Sources */,
+				BD60D3B325D58D9A0075CC34 /* TokenDriver.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BD60D3B925D58D9A0075CC34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD60D3AA25D58D9A0075CC34 /* SecureEnclaveTokenExtension */;
+			targetProxy = BD60D3B825D58D9A0075CC34 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BD60D39C25D58D6F0075CC34 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD60D39D25D58D6F0075CC34 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BD60D3A125D58D6F0075CC34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BD60D3A225D58D6F0075CC34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		BD60D3A425D58D6F0075CC34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SecureEnclaveToken/SecureEnclaveToken.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SecureEnclaveToken/Preview Content\"";
+				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = SecureEnclaveToken/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BD60D3A525D58D6F0075CC34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SecureEnclaveToken/SecureEnclaveToken.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"SecureEnclaveToken/Preview Content\"";
+				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = SecureEnclaveToken/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BD60D3BC25D58D9A0075CC34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SecureEnclaveTokenExtension/SecureEnclaveTokenExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = SecureEnclaveTokenExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken.SecureEnclaveTokenExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BD60D3BD25D58D9A0075CC34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SecureEnclaveTokenExtension/SecureEnclaveTokenExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = SecureEnclaveTokenExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken.SecureEnclaveTokenExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD60D38B25D58D6F0075CC34 /* Build configuration list for PBXProject "SecureEnclaveToken" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD60D3A125D58D6F0075CC34 /* Debug */,
+				BD60D3A225D58D6F0075CC34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD60D3A325D58D6F0075CC34 /* Build configuration list for PBXNativeTarget "SecureEnclaveToken" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD60D3A425D58D6F0075CC34 /* Debug */,
+				BD60D3A525D58D6F0075CC34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD60D3BB25D58D9A0075CC34 /* Build configuration list for PBXNativeTarget "SecureEnclaveTokenExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD60D3BC25D58D9A0075CC34 /* Debug */,
+				BD60D3BD25D58D9A0075CC34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BDE0445C25E0228C00C984E3 /* XCRemoteSwiftPackageReference "CertificateSigningRequest" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mwielgoszewski/CertificateSigningRequest";
+			requirement = {
+				branch = "feature/extension-requests";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BDE0445D25E0228C00C984E3 /* CertificateSigningRequest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDE0445C25E0228C00C984E3 /* XCRemoteSwiftPackageReference "CertificateSigningRequest" */;
+			productName = CertificateSigningRequest;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = BD60D38825D58D6F0075CC34 /* Project object */;
+}

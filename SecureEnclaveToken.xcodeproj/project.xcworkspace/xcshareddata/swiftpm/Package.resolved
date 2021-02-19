@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CertificateSigningRequest",
+        "repositoryURL": "https://github.com/mwielgoszewski/CertificateSigningRequest",
+        "state": {
+          "branch": "feature/extension-requests",
+          "revision": "0ee3a1a90c525b65a3f0079c4436ae4ce17944b0",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
