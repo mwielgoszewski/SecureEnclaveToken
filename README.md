@@ -37,6 +37,8 @@ menu select Product > Archive.
 Once you have a key generated and a signed certificate imported, the UI
 should indicate you have 2 token keychain items loaded.
 
+![SecureEnclaveToken](https://github.com/mwielgoszewski/SecureEnclaveToken/blob/main/images/SecureEnclaveToken.png)
+
 ## Debugging
 
 To view the identities loaded in SecureEnclaveTokenExtension, run
