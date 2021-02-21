@@ -27,7 +27,7 @@ struct ContentView: View {
     @State private var keyAccessControlFlags = 0
 
     let driverConfig = TKTokenDriver.Configuration.driverConfigurations["com.mwielgoszewski.setoken.SecureEnclaveToken.SecureEnclaveTokenExtension"]
-    
+
     // A unique, persistent identifier for this token.
     // This value is typically generated from the serial number of the target hardware.
     var tokenID: String {
@@ -43,15 +43,15 @@ struct ContentView: View {
         }
 
         IOObjectRelease(platformExpert)
-        
+
         let serialHash = SHA256.hash(data: serialNumber.data(using: .utf8)!).hexStr.dropLast(32)
         return String(serialHash)
     }
-    
+
     var tokenConfig: TKToken.Configuration {
         loadTokenConfig()
     }
-    
+
     func loadTokenConfig() -> TKToken.Configuration {
         if driverConfig!.tokenConfigurations.isEmpty {
             driverConfig?.addTokenConfiguration(for: tokenID)
@@ -62,22 +62,22 @@ struct ContentView: View {
         }
         return tokenConfig!
     }
-    
+
     func unloadTokenConfig() {
         driverConfig!.tokenConfigurations[tokenID]?.keychainItems.removeAll()
     }
-    
+
     func clearAllTokenConfigs() {
         for tokenConfigurationID in driverConfig!.tokenConfigurations.keys {
             print("Removing token configuration for \(tokenConfigurationID)")
             driverConfig!.removeTokenConfiguration(for: tokenConfigurationID)
         }
     }
-    
+
     var body: some View {
         let tag = "com.mwielgoszewski.setoken.SecureEnclaveToken.Key".data(using: .utf8)!
         var keysLoaded = tokenConfig.keychainItems.count
-        
+
         VStack(alignment: .leading, spacing: 5) {
             HStack {
                 Button(action: {
@@ -88,20 +88,20 @@ struct ContentView: View {
                         panel.allowedFileTypes = ["cer"]
                         if panel.runModal() == .OK {
                             let certificate = panel.url!.absoluteURL
-                            let _ = loadCertificateForTagIntoTokenConfig(certificatePath: certificate, tag: tag, tokenConfig: tokenConfig)
+                            _ = loadCertificateForTagIntoTokenConfig(certificatePath: certificate, tag: tag, tokenConfig: tokenConfig)
                         }
                     } else if self.loadButton == "Unload SE Keys" {
-                        let _ = tokenConfig.keychainItems.removeAll()
+                        tokenConfig.keychainItems.removeAll()
                     }
                     self.loadButton = tokenConfig.keychainItems.isEmpty ? "Load SE Keys" : "Unload SE Keys"
                     keysLoaded = tokenConfig.keychainItems.count
-                    
+
                 }) {
                     Text(loadButton)
                 }
                 Text("\(keysLoaded) token keychain items loaded")
             }
-            
+
             HStack(alignment: .top) {
                 Button(action: {
                     var secKey = loadSecureEnclaveKey(tag: tag)
@@ -114,24 +114,24 @@ struct ContentView: View {
                 }) {
                     Text("Generate Key")
                 }
-                
+
                 VStack(alignment: .leading) {
                     Picker(selection: $keyAccessibilityFlags, label: Text("Access:")) {
                         Text("After first unlock").tag(kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
                         Text("When unlocked").tag(kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
                     }
-                    
+
                     Picker(selection: $keyAccessControlFlags, label: Text("Require:")) {
                         Text("Biometric").tag(3)
                         Text("Passcode").tag(2)
                         Text("User Presence (Biometric OR Passcode)").tag(1)
                         Text("No additional security").tag(0)
                     }
-                    
+
                     Text(generateKeyDescription)
                 }
             }
-            
+
             HStack {
                 Button(action: {
                     self.showDeleteConfirmation = true
@@ -150,7 +150,7 @@ struct ContentView: View {
                     )
                 }
             }
-            
+
             HStack {
                 Button(action: {
                     let secKey = loadSecureEnclaveKey(tag: tag)
@@ -158,7 +158,7 @@ struct ContentView: View {
 
                     var error: Unmanaged<CFError>?
                     let ixy = SecKeyCopyExternalRepresentation(publicKey!, &error)
-                    let bytes:Data = ixy! as Data
+                    let bytes: Data = ixy! as Data
 
                     // seq / seq / id-ecPublicKey / prime256v1 asn.1
                     var der = Data(base64Encoded: "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA=")!
@@ -181,17 +181,17 @@ struct ContentView: View {
                     Text("Export Public Key")
                 }
             }
-             
+
             HStack(alignment: .top) {
                 Button(action: {
                     let secKey = loadSecureEnclaveKey(tag: tag)
                     if secKey != nil {
                         let publicKey = SecKeyCopyPublicKey(secKey!)
-                        
+
                         var error: Unmanaged<CFError>?
                         let ixy = SecKeyCopyExternalRepresentation(publicKey!, &error)
-                        let publicKeyBits:Data = ixy! as Data
-                        
+                        let publicKeyBits: Data = ixy! as Data
+
                         let savePanel = NSSavePanel()
                         // default filename to <tag>.req
                         savePanel.nameFieldStringValue = String(decoding: tag, as: UTF8.self) + ".req"
@@ -199,7 +199,16 @@ struct ContentView: View {
                             let exportFilename = savePanel.url!
                             do {
                                 let keyAlgorithm = KeyAlgorithm.ec(signatureType: .sha256)
-                                let csr = CertificateSigningRequest.init(commonName: commonName, organizationName: organizationName, organizationUnitName: organizationUnitName, countryName: countryName, stateOrProvinceName: stateOrProvinceName, localityName: localityName, emailAddress: emailAddress, description: nil, keyAlgorithm: keyAlgorithm)
+                                let csr = CertificateSigningRequest.init(
+                                    commonName: commonName,
+                                    organizationName: organizationName,
+                                    organizationUnitName: organizationUnitName,
+                                    countryName: countryName,
+                                    stateOrProvinceName: stateOrProvinceName,
+                                    localityName: localityName,
+                                    emailAddress: emailAddress,
+                                    description: nil,
+                                    keyAlgorithm: keyAlgorithm)
 
                                 let pem = csr.buildCSRAndReturnString(publicKeyBits, privateKey: secKey!, publicKey: publicKey)
                                 try pem?.data(using: .ascii)!.write(to: exportFilename)
@@ -212,16 +221,16 @@ struct ContentView: View {
                 }) {
                     Text("Generate Signing Request")
                 }
-                
+
                 VStack(alignment: .leading) {
                     Text("Enter fields below:")
-                    TextField("Common Name", text:$commonName)
-                    TextField("Email Address (delimit using semicolon)", text:$emailAddress)
-                    TextField("Organizational Unit (delimit using semicolon)", text:$organizationUnitName)
-                    TextField("Organization", text:$organizationName)
-                    TextField("Locality", text:$localityName)
-                    TextField("State or Province", text:$stateOrProvinceName)
-                    TextField("Country", text:$countryName)
+                    TextField("Common Name", text: $commonName)
+                    TextField("Email Address (delimit using semicolon)", text: $emailAddress)
+                    TextField("Organizational Unit (delimit using semicolon)", text: $organizationUnitName)
+                    TextField("Organization", text: $organizationName)
+                    TextField("Locality", text: $localityName)
+                    TextField("State or Province", text: $stateOrProvinceName)
+                    TextField("Country", text: $countryName)
                 }
 
             }
@@ -230,7 +239,6 @@ struct ContentView: View {
 
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

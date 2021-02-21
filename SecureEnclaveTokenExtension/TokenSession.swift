@@ -14,19 +14,17 @@ class TokenSession: TKSmartCardTokenSession, TKTokenSessionDelegate {
         // Note that the constraint was previously established when populating keychainContents during token initialization.
         return TKTokenSmartCardPINAuthOperation()
     }
-    
+
     func tokenSession(_ session: TKTokenSession, supports operation: TKTokenOperation, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) -> Bool {
         // Indicate whether the given key supports the specified operation and algorithm.
         NSLog("Determining if \(keyObjectID) supports \(operation.rawValue)")
         do {
             let tokenKey = try self.token.keychainContents?.key(forObjectID: keyObjectID)
-            
-            
-            
-            switch (operation) {
+
+            switch operation {
             case .signData:
                 NSLog("Checking if key can sign for algorithm \(algorithm)")
-                if (tokenKey!.canSign) {
+                if tokenKey!.canSign {
                     if algorithm.isAlgorithm(.ecdsaSignatureRFC4754) {
                         NSLog("Can sign ecdsaSignatureRFC4754")
                         return true
@@ -51,14 +49,12 @@ class TokenSession: TKSmartCardTokenSession, TKTokenSessionDelegate {
                     }
                     return false
                 }
-                break
-            
+
             case .performKeyExchange:
                 NSLog("Checking if key can perform key exchange \(algorithm)")
-                if (tokenKey!.canPerformKeyExchange) {
+                if tokenKey!.canPerformKeyExchange {
                     return true
                 }
-                break
 
             case .none:
                 break
@@ -68,36 +64,35 @@ class TokenSession: TKSmartCardTokenSession, TKTokenSessionDelegate {
                 break
             @unknown default:
                 NSLog("Unhandled token operation requested: \(operation.rawValue)")
-                break
             }
         } catch {
             NSLog("Could not find private key: \(keyObjectID)")
             return false
         }
-        
+
         NSLog("Key \(keyObjectID) does not support operation: \(operation.rawValue)")
         return false
     }
-    
+
     func tokenSession(_ session: TKTokenSession, sign dataToSign: Data, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) throws -> Data {
         var signature: Data?
         var item: CFTypeRef?
         var privateKey: SecKey
-        
+
         NSLog("Querying for key \(keyObjectID)")
-        
+
         let query: [String: Any] = [kSecClass as String: kSecClassKey,
                                     kSecAttrApplicationTag as String: keyObjectID,
                                     kSecAttrKeyType as String: kSecAttrKeyTypeEC,
                                     kSecReturnRef as String: true]
 
         let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
+
         if status == errSecSuccess {
             privateKey = (item as! SecKey)
             var error: Unmanaged<CFError>?
             var alg: SecKeyAlgorithm = .ecdsaSignatureDigestX962
-            
+
             if algorithm.isAlgorithm(.ecdsaSignatureRFC4754) {
                 alg = .ecdsaSignatureRFC4754
             } else if algorithm.isAlgorithm(.ecdsaSignatureDigestX962) {
@@ -119,7 +114,7 @@ class TokenSession: TKSmartCardTokenSession, TKTokenSessionDelegate {
                 NSLog("Can sign ecdsaSignatureDigestX962SHA512")
                 alg = .ecdsaSignatureDigestX962SHA512
             }
-            
+
             signature = SecKeyCreateSignature(privateKey,
                                               alg,
                                               dataToSign as CFData,
@@ -131,34 +126,34 @@ class TokenSession: TKSmartCardTokenSession, TKTokenSessionDelegate {
             throw NSError(domain: TKErrorDomain, code: TKError.Code.objectNotFound.rawValue, userInfo: nil)
         }
     }
-    
+
     func tokenSession(_ session: TKTokenSession, decrypt ciphertext: Data, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) throws -> Data {
         throw NSError(domain: TKErrorDomain, code: TKError.Code.notImplemented.rawValue, userInfo: nil)
     }
-    
+
     func tokenSession(_ session: TKTokenSession, performKeyExchange otherPartyPublicKeyData: Data, keyObjectID objectID: Any, algorithm: TKTokenKeyAlgorithm, parameters: TKTokenKeyExchangeParameters) throws -> Data {
         var secret: Data?
-        
+
         var item: CFTypeRef?
         var privateKey: SecKey
-        
+
         let query: [String: Any] = [kSecClass as String: kSecClassKey,
                                     kSecAttrApplicationTag as String: objectID,
                                     kSecAttrKeyType as String: kSecAttrKeyTypeEC,
                                     kSecReturnRef as String: true]
 
         let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
+
         if status == errSecSuccess {
             privateKey = (item as! SecKey)
             var error: Unmanaged<CFError>?
-            
+
             let attributes: [String: Any] = [kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
                                              kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
                                              kSecAttrKeySizeInBits as String: 256]
-            
+
             let publicKey = SecKeyCreateWithData(otherPartyPublicKeyData as CFData, attributes as CFDictionary, &error)!
-            
+
             secret = SecKeyCopyKeyExchangeResult(privateKey, SecKeyAlgorithm.ecdhKeyExchangeStandard, publicKey, parameters as! CFDictionary, &error) as Data?
             return secret!
 
