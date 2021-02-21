@@ -426,7 +426,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SecureEnclaveToken/Preview Content\"";
-				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				DEVELOPMENT_TEAM = W8LYJ3542D;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -439,7 +439,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.SecureEnclaveToken;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -455,7 +455,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SecureEnclaveToken/Preview Content\"";
-				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				DEVELOPMENT_TEAM = W8LYJ3542D;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -468,7 +468,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.SecureEnclaveToken;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -480,7 +480,7 @@
 				CODE_SIGN_ENTITLEMENTS = SecureEnclaveTokenExtension/SecureEnclaveTokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				DEVELOPMENT_TEAM = W8LYJ3542D;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SecureEnclaveTokenExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -488,7 +488,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken.SecureEnclaveTokenExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.SecureEnclaveToken.SecureEnclaveTokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -501,7 +501,7 @@
 				CODE_SIGN_ENTITLEMENTS = SecureEnclaveTokenExtension/SecureEnclaveTokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 2R3KM5R43V;
+				DEVELOPMENT_TEAM = W8LYJ3542D;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SecureEnclaveTokenExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -509,7 +509,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.setoken.SecureEnclaveToken.SecureEnclaveTokenExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.SecureEnclaveToken.SecureEnclaveTokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

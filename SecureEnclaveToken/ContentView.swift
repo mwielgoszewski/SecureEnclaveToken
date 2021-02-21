@@ -26,7 +26,7 @@ struct ContentView: View {
     @State private var keyAccessibilityFlags = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
     @State private var keyAccessControlFlags = 0
 
-    let driverConfig = TKTokenDriver.Configuration.driverConfigurations["com.mwielgoszewski.setoken.SecureEnclaveToken.SecureEnclaveTokenExtension"]
+    let driverConfig = TKTokenDriver.Configuration.driverConfigurations["com.mwielgoszewski.SecureEnclaveToken.SecureEnclaveTokenExtension"]
 
     // A unique, persistent identifier for this token.
     // This value is typically generated from the serial number of the target hardware.
@@ -75,7 +75,7 @@ struct ContentView: View {
     }
 
     var body: some View {
-        let tag = "com.mwielgoszewski.setoken.SecureEnclaveToken.Key".data(using: .utf8)!
+        let tag = "com.mwielgoszewski.SecureEnclaveToken.Key".data(using: .utf8)!
         var keysLoaded = tokenConfig.keychainItems.count
 
         VStack(alignment: .leading, spacing: 5) {
