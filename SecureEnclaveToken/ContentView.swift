@@ -12,8 +12,10 @@ import CertificateSigningRequest
 
 struct ContentView: View {
     @State private var keysIsEmpty = false
-    @State private var loadButton = "Query Token Configuration"
+    @State private var loadButton = "Query Token"
     @State private var keysLoaded = 0
+    @State private var certificateLabel = ""
+    @State private var keyLabel = ""
     @State private var generateKeyDescription = ""
     @State private var showDeleteConfirmation = false
     @State private var commonName = ""
@@ -76,7 +78,6 @@ struct ContentView: View {
 
     var body: some View {
         let tag = "com.mwielgoszewski.SecureEnclaveToken.Key".data(using: .utf8)!
-        var keysLoaded = tokenConfig.keychainItems.count
 
         VStack(alignment: .leading, spacing: 5) {
             HStack {
@@ -90,16 +91,33 @@ struct ContentView: View {
                             let certificate = panel.url!.absoluteURL
                             _ = loadCertificateForTagIntoTokenConfig(certificatePath: certificate, tag: tag, tokenConfig: tokenConfig)
                         }
-                    } else if self.loadButton == "Unload SE Keys" {
+                    } else if self.loadButton == "Unload Token" {
                         tokenConfig.keychainItems.removeAll()
                     }
-                    self.loadButton = tokenConfig.keychainItems.isEmpty ? "Load SE Keys" : "Unload SE Keys"
+                    self.loadButton = tokenConfig.keychainItems.isEmpty ? "Load Token" : "Unload Token"
                     keysLoaded = tokenConfig.keychainItems.count
+
+                    if keysLoaded > 0 {
+                        do {
+                            let tkcert = try tokenConfig.certificate(for: tag)
+                            let tkkey  = try tokenConfig.key(for: tag)
+                            certificateLabel = " • \(tkcert.label ?? "")"
+                            keyLabel = " • \(tkkey.label ?? "")"
+                        } catch {
+                        }
+                    } else {
+                        certificateLabel = ""
+                        keyLabel = ""
+                    }
 
                 }) {
                     Text(loadButton)
                 }
-                Text("\(keysLoaded) token keychain items loaded")
+                VStack(alignment: .leading) {
+                    Text("\(keysLoaded) token keychain items loaded")
+                    Text(certificateLabel)
+                    Text(keyLabel)
+                }
             }
 
             HStack(alignment: .top) {

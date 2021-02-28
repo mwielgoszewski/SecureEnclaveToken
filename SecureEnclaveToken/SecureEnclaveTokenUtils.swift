@@ -7,6 +7,7 @@
 
 import Foundation
 import Security
+import CryptoKit
 import CryptoTokenKit
 
 func generateKeyInEnclave(tag: Data, accessibility: CFString, accessControlFlags: Int) -> SecKey {
@@ -95,7 +96,7 @@ func deleteSecureEnclaveKey(tag: Data) -> Bool {
     return status == errSecSuccess
 }
 
-func loadCertificateForTagIntoTokenConfig(certificatePath: URL, tag: Data, tokenConfig: TKToken.Configuration) -> Bool {
+func loadCertificateForTagIntoTokenConfig(certificatePath: URL, tag: Data, tokenConfig: TKToken.Configuration) -> SecCertificate? {
 
     if FileManager.default.fileExists(atPath: certificatePath.path) {
         do {
@@ -122,27 +123,36 @@ func loadCertificateForTagIntoTokenConfig(certificatePath: URL, tag: Data, token
                 throw NSError()
             }
 
+            let publicKeyHash = Insecure.SHA1.hash(data: bytes)
+
+            var commonName: CFString?
+            _ = SecCertificateCopyCommonName(certificate, &commonName)
+
             let tokenCertificate = TKTokenKeychainCertificate(certificate: certificate, objectID: tag)
-            tokenCertificate?.label = "se certificate"
+            tokenCertificate?.label = "Certificate for PIV Authentication (\(commonName ?? "Secure Enclave" as CFString))"
 
             let tokenKey = TKTokenKeychainKey(certificate: certificate, objectID: tag)
-            tokenKey?.label = "se key"
+            tokenKey?.label = "PIV AUTH key"
             tokenKey?.canSign = true
             tokenKey?.canPerformKeyExchange = true
             tokenKey?.isSuitableForLogin = true
             tokenKey?.canDecrypt = false
+            tokenKey?.applicationTag = tag
+            tokenKey?.keySizeInBits = 256
+            tokenKey?.keyType = kSecAttrKeyTypeECSECPrimeRandom as String
+            tokenKey?.publicKeyData = bytes
+            tokenKey?.publicKeyHash = publicKeyHash.data
 
             tokenConfig.keychainItems.append(tokenKey!)
             tokenConfig.keychainItems.append(tokenCertificate!)
-            return true
+            return certificate
         } catch {
             print("Failed to create cert??")
-            return false
         }
     } else {
         print("Certificate is not a file")
     }
-    return false
+    return nil
 }
 
 func importCertificateAndCreateSecIdentity(key: SecKey, certificatePath: URL, tag: Data) -> SecIdentity? {
