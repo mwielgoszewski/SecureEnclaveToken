@@ -9,6 +9,7 @@ import SwiftUI
 import CryptoKit
 import CryptoTokenKit
 import CertificateSigningRequest
+import DeviceCheck
 
 struct ContentView: View {
     @State private var keysIsEmpty = false
@@ -17,6 +18,7 @@ struct ContentView: View {
     @State private var certificateLabel = ""
     @State private var keyLabel = ""
     @State private var generateKeyDescription = ""
+    @State private var generateKeyWithAttestation = false
     @State private var showDeleteConfirmation = false
     @State private var commonName = ""
     @State private var emailAddress = ""
@@ -125,6 +127,8 @@ struct ContentView: View {
                     var secKey = loadSecureEnclaveKey(tag: tag)
                     if secKey != nil {
                         generateKeyDescription = "Found key: \(secKey.debugDescription)"
+                    } else if generateKeyWithAttestation, #available(macOS 11.3, *) {
+                        generateAttestableKey()
                     } else {
                         secKey = generateKeyInEnclave(tag: tag, accessibility: keyAccessibilityFlags, accessControlFlags: keyAccessControlFlags)
                         generateKeyDescription = "Generated key: \(secKey.debugDescription)"
@@ -145,6 +149,8 @@ struct ContentView: View {
                         Text("User Presence (Biometric OR Passcode)").tag(1)
                         Text("No additional security").tag(0)
                     }
+
+                    Toggle("With attestation", isOn: $generateKeyWithAttestation)
 
                     Text(generateKeyDescription)
                 }

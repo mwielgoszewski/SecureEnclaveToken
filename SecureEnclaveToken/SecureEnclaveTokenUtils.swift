@@ -9,6 +9,7 @@ import Foundation
 import Security
 import CryptoKit
 import CryptoTokenKit
+import DeviceCheck
 
 func generateKeyInEnclave(tag: Data, accessibility: CFString, accessControlFlags: Int) -> SecKey {
     print("Generating key ...")
@@ -66,6 +67,23 @@ func generateKeyInEnclave(tag: Data, accessibility: CFString, accessControlFlags
     print(bytes.base64EncodedString())
 
     return privateKey!
+}
+
+@available(macOS 11.3, *)
+func generateAttestableKey() -> String? {
+    let service = DCAppAttestService.shared
+    var tag: String?
+    if service.isSupported {
+        service.generateKey { (keyIdentifer, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            print(keyIdentifer!)
+            tag = keyIdentifer
+        }
+    }
+    return tag
 }
 
 func loadSecureEnclaveKey(tag: Data) -> SecKey? {
