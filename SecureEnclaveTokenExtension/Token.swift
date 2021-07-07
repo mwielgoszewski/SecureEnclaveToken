@@ -7,12 +7,12 @@
 
 import CryptoTokenKit
 
-class Token: TKSmartCardToken, TKTokenDelegate {
+class Token: TKToken, TKTokenDelegate {
 
-    init(smartCard: TKSmartCard, tokenDriver: TokenDriver, configuration: TKToken.Configuration) throws {
+    init(tokenDriver: TokenDriver, instanceID: TKToken.InstanceID) throws {
         NSLog("Initializing Token configuration based interface")
-        NSLog("Got instanceID: \(configuration.instanceID)")
-        super.init(smartCard: smartCard, aid: nil, instanceID: configuration.instanceID, tokenDriver: tokenDriver)
+        NSLog("Got instanceID: \(instanceID)")
+        super.init(tokenDriver: tokenDriver, instanceID: instanceID)
         self.keychainContents?.fill(with: configuration.keychainItems)
         do {
             let tag = "com.mwielgoszewski.SecureEnclaveToken.Key".data(using: .utf8)!
@@ -22,14 +22,6 @@ class Token: TKSmartCardToken, TKTokenDelegate {
             NSLog("Failed pulling certificate")
         }
         NSLog("Got keychain items: \(String(describing: self.keychainContents?.items.count))")
-    }
-
-    init(smartCard: TKSmartCard, aid AID: Data?, tokenDriver: TKSmartCardTokenDriver) throws {
-        let instanceID = "token_instance_id" // Fill in a unique persistent identifier of the token instance.
-        super.init(smartCard: smartCard, aid: AID, instanceID: instanceID, tokenDriver: tokenDriver)
-        // Insert code here to enumerate token objects and populate keychainContents with instances of TKTokenKeychainCertificate, TKTokenKeychainKey, etc.
-        let items = [TKTokenKeychainItem]()
-        self.keychainContents!.fill(with: items)
     }
 
     func createSession(_ token: TKToken) throws -> TKTokenSession {

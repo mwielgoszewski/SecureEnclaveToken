@@ -7,7 +7,7 @@
 
 import CryptoTokenKit
 
-class TokenSession: TKSmartCardTokenSession, TKTokenSessionDelegate {
+class TokenSession: TKTokenSession, TKTokenSessionDelegate {
 
     func tokenSession(_ session: TKTokenSession, beginAuthFor operation: TKTokenOperation, constraint: Any) throws -> TKTokenAuthOperation {
         // Insert code here to create an instance of TKTokenAuthOperation based on the specified operation and constraint.
@@ -102,8 +102,8 @@ class TokenSession: TKSmartCardTokenSession, TKTokenSessionDelegate {
         throw NSError(domain: TKErrorDomain, code: TKError.Code.notImplemented.rawValue, userInfo: nil)
     }
 
-    func tokenSession(_ session: TKTokenSession, performKeyExchange otherPartyPublicKeyData: Data, keyObjectID objectID: Any, algorithm: TKTokenKeyAlgorithm, parameters: TKTokenKeyExchangeParameters) throws -> Data {
-
+    func tokenSession(_ session: TKTokenSession, performKeyExchange otherPartyPublicKeyData: Data, keyObjectID objectID: Any, algorithm: TKTokenKeyAlgorithm, parameters: TKTokenKeyExchangeParameters) throws ->
+    Data {
         let tag = String(data: objectID as! Data, encoding: .utf8)!
 
         NSLog("Querying for keyObjectID: \(tag) to perform key exchange")

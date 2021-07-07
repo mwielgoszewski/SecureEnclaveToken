@@ -66,7 +66,7 @@ struct ContentView: View {
     }
 
     func unloadTokenConfig() {
-        driverConfig!.tokenConfigurations[tokenID]?.keychainItems.removeAll()
+        driverConfig!.removeTokenConfiguration(for: tokenID)
     }
 
     func clearAllTokenConfigs() {
