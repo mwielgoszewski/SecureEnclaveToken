@@ -10,9 +10,7 @@ import Security
 import CryptoKit
 import CryptoTokenKit
 
-func generateKeyInEnclave(tag: Data, accessibility: CFString, accessControlFlags: Int) -> SecKey {
-    print("Generating key ...")
-
+func generateKeyInEnclaveFromUi(tag: Data, accessibility: CFString, accessControlFlags: Int) -> SecKey {
     var flags: SecAccessControlCreateFlags
 
     switch accessControlFlags {
@@ -26,6 +24,10 @@ func generateKeyInEnclave(tag: Data, accessibility: CFString, accessControlFlags
         flags = [SecAccessControlCreateFlags.privateKeyUsage]
     }
 
+    return generateKeyInEnclave(tag: tag, accessibility: accessibility, flags: flags)
+}
+
+func generateKeyInEnclave(tag: Data, accessibility: CFString, flags: SecAccessControlCreateFlags) -> SecKey {
     let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
                                                  accessibility,
                                                  flags,
@@ -44,26 +46,15 @@ func generateKeyInEnclave(tag: Data, accessibility: CFString, accessControlFlags
 
     var publicKey, privateKey: SecKey?
 
-    let status = SecKeyGeneratePair(attributes as CFDictionary, &publicKey, &privateKey)
-
-    print(status)
-    print(privateKey!)
-    print(publicKey!)
+    _ = SecKeyGeneratePair(attributes as CFDictionary, &publicKey, &privateKey)
 
     var error: Unmanaged<CFError>?
 
     // Create a bogus signature of the data to prove biometric
-    let signature = SecKeyCreateSignature(privateKey!,
-                                          .ecdsaSignatureMessageX962SHA256,
-                                          tag as CFData,
-                                          &error) as Data?
-    print("Signature: \(String(describing: signature))")
-
-    let ixy = SecKeyCopyExternalRepresentation(publicKey!, &error)
-    print(ixy!)
-
-    let bytes: Data = ixy! as Data
-    print(bytes.base64EncodedString())
+    _ = SecKeyCreateSignature(privateKey!,
+                              .ecdsaSignatureMessageX962SHA256,
+                              tag as CFData,
+                              &error) as Data?
 
     return privateKey!
 }
@@ -96,6 +87,57 @@ func deleteSecureEnclaveKey(tag: Data) -> Bool {
     return status == errSecSuccess
 }
 
+enum CertificateImportError: Error {
+    case keysMismatch, keyDoesNotExist
+}
+
+func addCertificateToToken(certificate: SecCertificate, tag: Data, tokenConfig: TKToken.Configuration) throws {
+
+    let certificatePublicKey = SecCertificateCopyKey(certificate)
+
+    let secKey = loadSecureEnclaveKey(tag: tag)
+    guard secKey != nil else {
+        throw CertificateImportError.keyDoesNotExist
+    }
+
+    let publicKey = SecKeyCopyPublicKey(secKey!)
+
+    var error: Unmanaged<CFError>?
+    let ixy = SecKeyCopyExternalRepresentation(publicKey!, &error)
+    let bytes: Data = ixy! as Data
+
+    let ixy2 = SecKeyCopyExternalRepresentation(certificatePublicKey!, &error)
+    let bytes2: Data = ixy2! as Data
+
+    if bytes != bytes2 {
+        throw CertificateImportError.keysMismatch
+    }
+
+    let publicKeyHash = Insecure.SHA1.hash(data: bytes)
+
+    var commonName: CFString?
+    _ = SecCertificateCopyCommonName(certificate, &commonName)
+
+    let tokenCertificate = TKTokenKeychainCertificate(certificate: certificate, objectID: tag)
+    tokenCertificate?.label = "\(String(data: tag, encoding: .utf8) ?? "") certificate"
+
+    let tokenKey = TKTokenKeychainKey(certificate: certificate, objectID: tag)
+    tokenKey?.label = "\(String(data: tag, encoding: .utf8) ?? "") key"
+    tokenKey?.canSign = true
+    tokenKey?.canPerformKeyExchange = true
+    tokenKey?.isSuitableForLogin = true
+    tokenKey?.canDecrypt = false
+    tokenKey?.applicationTag = tag
+    tokenKey?.keyType = kSecAttrKeyTypeECSECPrimeRandom as String
+    tokenKey?.publicKeyData = bytes
+    tokenKey?.publicKeyHash = publicKeyHash.data
+
+    tokenConfig.keychainItems.append(tokenKey!)
+    tokenConfig.keychainItems.append(tokenCertificate!)
+    return
+}
+
+
 func loadCertificateForTagIntoTokenConfig(certificatePath: URL, tag: Data, tokenConfig: TKToken.Configuration) -> SecCertificate? {
 
     if FileManager.default.fileExists(atPath: certificatePath.path) {
@@ -106,45 +148,7 @@ func loadCertificateForTagIntoTokenConfig(certificatePath: URL, tag: Data, token
             let certificate = SecCertificateCreateWithData(nil, certificateData as CFData)!
             print(certificate)
 
-            let certificatePublicKey = SecCertificateCopyKey(certificate)
-
-            let secKey = loadSecureEnclaveKey(tag: tag)!
-            let publicKey = SecKeyCopyPublicKey(secKey)
-
-            var error: Unmanaged<CFError>?
-            let ixy = SecKeyCopyExternalRepresentation(publicKey!, &error)
-            let bytes: Data = ixy! as Data
-
-            let ixy2 = SecKeyCopyExternalRepresentation(certificatePublicKey!, &error)
-            let bytes2: Data = ixy2! as Data
-
-            if bytes != bytes2 {
-                print("Public key bytes of certificate do not match that of key for this tag")
-                throw NSError()
-            }
-
-            let publicKeyHash = Insecure.SHA1.hash(data: bytes)
-
-            var commonName: CFString?
-            _ = SecCertificateCopyCommonName(certificate, &commonName)
-
-            let tokenCertificate = TKTokenKeychainCertificate(certificate: certificate, objectID: tag)
-            tokenCertificate?.label = "Certificate for PIV Authentication (\(commonName ?? "Secure Enclave" as CFString))"
-
-            let tokenKey = TKTokenKeychainKey(certificate: certificate, objectID: tag)
-            tokenKey?.label = "PIV AUTH key"
-            tokenKey?.canSign = true
-            tokenKey?.canPerformKeyExchange = true
-            tokenKey?.isSuitableForLogin = true
-            tokenKey?.canDecrypt = false
-            tokenKey?.applicationTag = tag
-            tokenKey?.keySizeInBits = 256
-            tokenKey?.keyType = kSecAttrKeyTypeECSECPrimeRandom as String
-            tokenKey?.publicKeyData = bytes
-            tokenKey?.publicKeyHash = publicKeyHash.data
-
-            tokenConfig.keychainItems.append(tokenKey!)
-            tokenConfig.keychainItems.append(tokenCertificate!)
+            try addCertificateToToken(certificate: certificate, tag: tag, tokenConfig: tokenConfig)
             return certificate
         } catch {
             print("Failed to create cert??")
@@ -194,7 +198,6 @@ func importCertificateAndCreateSecIdentity(key: SecKey, certificatePath: URL, ta
             }
 
             return identity
-
         }
 
     } catch {

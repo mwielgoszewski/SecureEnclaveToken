@@ -102,8 +102,7 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
         throw NSError(domain: TKErrorDomain, code: TKError.Code.notImplemented.rawValue, userInfo: nil)
     }
 
-    func tokenSession(_ session: TKTokenSession, performKeyExchange otherPartyPublicKeyData: Data, keyObjectID objectID: Any, algorithm: TKTokenKeyAlgorithm, parameters: TKTokenKeyExchangeParameters) throws ->
-    Data {
+    func tokenSession(_ session: TKTokenSession, performKeyExchange otherPartyPublicKeyData: Data, keyObjectID objectID: Any, algorithm: TKTokenKeyAlgorithm, parameters: TKTokenKeyExchangeParameters) throws -> Data {
         let tag = String(data: objectID as! Data, encoding: .utf8)!
 
         NSLog("Querying for keyObjectID: \(tag) to perform key exchange")

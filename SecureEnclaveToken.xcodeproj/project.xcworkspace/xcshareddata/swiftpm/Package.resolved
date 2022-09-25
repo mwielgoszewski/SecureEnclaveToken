@@ -1,16 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "CertificateSigningRequest",
-        "repositoryURL": "https://github.com/mwielgoszewski/CertificateSigningRequest",
-        "state": {
-          "branch": "feature/extension-requests",
-          "revision": "0ee3a1a90c525b65a3f0079c4436ae4ce17944b0",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "certificatesigningrequest",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mwielgoszewski/CertificateSigningRequest",
+      "state" : {
+        "branch" : "feature/extension-requests",
+        "revision" : "f2cf3284bf2763772ea0e81f107df030ac7b9e23"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "9f39744e025c7d377987f30b03770805dcb0bcd1",
+        "version" : "1.1.4"
+      }
+    }
+  ],
+  "version" : 2
 }

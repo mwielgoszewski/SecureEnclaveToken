@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,9 @@
 		BD60D3BA25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BD60D3AB25D58D9A0075CC34 /* SecureEnclaveTokenExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BD60D3C225D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D3C125D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift */; };
 		BDE0445E25E0228C00C984E3 /* CertificateSigningRequest in Frameworks */ = {isa = PBXBuildFile; productRef = BDE0445D25E0228C00C984E3 /* CertificateSigningRequest */; };
+		D98B035928DF8CFE00D6EB1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98B035828DF8CFE00D6EB1C /* main.swift */; };
+		D98B035C28DF955900D6EB1C /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = D98B035B28DF955900D6EB1C /* ArgumentParser */; };
+		D98B035E28E0915200D6EB1C /* SecureEnclaveTokenCLI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98B035D28E0915200D6EB1C /* SecureEnclaveTokenCLI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D99219A828DF7DAE0088BA56 /* Embed CLI */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+			);
+			name = "Embed CLI";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +85,8 @@
 		BD60D3B625D58D9A0075CC34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD60D3B725D58D9A0075CC34 /* SecureEnclaveTokenExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SecureEnclaveTokenExtension.entitlements; sourceTree = "<group>"; };
 		BD60D3C125D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveTokenUtils.swift; sourceTree = "<group>"; };
+		D98B035828DF8CFE00D6EB1C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D98B035D28E0915200D6EB1C /* SecureEnclaveTokenCLI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveTokenCLI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D98B035C28DF955900D6EB1C /* ArgumentParser in Frameworks */,
 				BDE0445E25E0228C00C984E3 /* CertificateSigningRequest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,11 +134,12 @@
 			children = (
 				BD60D39325D58D6F0075CC34 /* AppDelegate.swift */,
 				BD60D39525D58D6F0075CC34 /* ContentView.swift */,
+				D98B035D28E0915200D6EB1C /* SecureEnclaveTokenCLI.swift */,
 				BD60D3C125D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift */,
-				BD60D39725D58D6F0075CC34 /* Assets.xcassets */,
-				BD60D39C25D58D6F0075CC34 /* Main.storyboard */,
-				BD60D39F25D58D6F0075CC34 /* Info.plist */,
 				BD60D3A025D58D6F0075CC34 /* SecureEnclaveToken.entitlements */,
+				BD60D39F25D58D6F0075CC34 /* Info.plist */,
+				D98B035828DF8CFE00D6EB1C /* main.swift */,
+				BD60D39725D58D6F0075CC34 /* Assets.xcassets */,
 				BD60D39925D58D6F0075CC34 /* Preview Content */,
 			);
 			path = SecureEnclaveToken;
@@ -131,6 +148,7 @@
 		BD60D39925D58D6F0075CC34 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				BD60D39C25D58D6F0075CC34 /* Main.storyboard */,
 				BD60D39A25D58D6F0075CC34 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -168,6 +186,7 @@
 				BD60D38E25D58D6F0075CC34 /* Resources */,
 				BD60D3BE25D58D9A0075CC34 /* Embed App Extensions */,
 				BD6D6EE625DD910E00C507B4 /* Embed Frameworks */,
+				D99219A828DF7DAE0088BA56 /* Embed CLI */,
 			);
 			buildRules = (
 			);
@@ -177,6 +196,7 @@
 			name = SecureEnclaveToken;
 			packageProductDependencies = (
 				BDE0445D25E0228C00C984E3 /* CertificateSigningRequest */,
+				D98B035B28DF955900D6EB1C /* ArgumentParser */,
 			);
 			productName = SecureEnclaveToken;
 			productReference = BD60D39025D58D6F0075CC34 /* SecureEnclaveToken.app */;
@@ -205,7 +225,7 @@
 		BD60D38825D58D6F0075CC34 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					BD60D38F25D58D6F0075CC34 = {
@@ -217,7 +237,7 @@
 				};
 			};
 			buildConfigurationList = BD60D38B25D58D6F0075CC34 /* Build configuration list for PBXProject "SecureEnclaveToken" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -227,6 +247,7 @@
 			mainGroup = BD60D38725D58D6F0075CC34;
 			packageReferences = (
 				BDE0445C25E0228C00C984E3 /* XCRemoteSwiftPackageReference "CertificateSigningRequest" */,
+				D98B035A28DF955900D6EB1C /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 			);
 			productRefGroup = BD60D39125D58D6F0075CC34 /* Products */;
 			projectDirPath = "";
@@ -263,8 +284,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D98B035E28E0915200D6EB1C /* SecureEnclaveTokenCLI.swift in Sources */,
 				BD60D39625D58D6F0075CC34 /* ContentView.swift in Sources */,
 				BD60D39425D58D6F0075CC34 /* AppDelegate.swift in Sources */,
+				D98B035928DF8CFE00D6EB1C /* main.swift in Sources */,
 				BD60D3C225D58E5A0075CC34 /* SecureEnclaveTokenUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,11 +458,12 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SecureEnclaveToken/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.SecureEnclaveToken;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -465,11 +489,12 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SecureEnclaveToken/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwielgoszewski.SecureEnclaveToken;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -563,6 +588,14 @@
 				kind = branch;
 			};
 		};
+		D98B035A28DF955900D6EB1C /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -570,6 +603,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BDE0445C25E0228C00C984E3 /* XCRemoteSwiftPackageReference "CertificateSigningRequest" */;
 			productName = CertificateSigningRequest;
+		};
+		D98B035B28DF955900D6EB1C /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D98B035A28DF955900D6EB1C /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
