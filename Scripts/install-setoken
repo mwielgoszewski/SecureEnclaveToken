@@ -1,0 +1,50 @@
+#!/bin/sh
+# Install only a launcher symlink. Never change shell profiles or replace another tool.
+set -eu
+
+usage() {
+    echo 'Usage: install-setoken [--app /path/SecureEnclaveToken.app] [--bin-dir /path/bin]'
+}
+directory=$(CDPATH= cd -P "$(dirname "$0")" && pwd)
+app=$(dirname "$(dirname "$directory")")
+if [ ! -x "$app/Contents/MacOS/SecureEnclaveToken" ]; then
+    app=/Applications/SecureEnclaveToken.app
+fi
+bin_dir=${HOME:?}/.local/bin
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --app|--bin-dir)
+            [ "$#" -ge 2 ] || { usage >&2; exit 64; }
+            case "$1" in
+                --app) app=$2 ;;
+                --bin-dir) bin_dir=$2 ;;
+            esac
+            shift 2 ;;
+        -h|--help) usage; exit 0 ;;
+        *) usage >&2; exit 64 ;;
+    esac
+done
+[ -d "$app" ] || { echo "install-setoken: app not found: $app" >&2; exit 1; }
+app=$(CDPATH= cd -P "$app" && pwd)
+source=$app/Contents/Resources/setoken
+if [ ! -x "$source" ] || [ ! -x "$app/Contents/MacOS/SecureEnclaveToken" ]; then
+    echo 'install-setoken: this app does not contain the setoken launcher; build or install the updated app first.' >&2
+    exit 1
+fi
+mkdir -p "$bin_dir"
+bin_dir=$(CDPATH= cd -P "$bin_dir" && pwd)
+destination=$bin_dir/setoken
+if [ -e "$destination" ] || [ -L "$destination" ]; then
+    if [ ! -L "$destination" ] || [ "$(/usr/bin/readlink "$destination")" != "$source" ]; then
+        echo "install-setoken: refusing to replace an existing file: $destination" >&2
+        echo 'Choose another --bin-dir, or remove the old launcher yourself before reinstalling.' >&2
+        exit 1
+    fi
+else
+    ln -s "$source" "$destination"
+fi
+printf 'Installed %s -> %s\n' "$destination" "$source"
+case ":${PATH:-}:" in
+    *":$bin_dir:"*) ;;
+    *) printf 'Add this directory to your shell PATH: %s\n' "$bin_dir" ;;
+esac

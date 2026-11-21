@@ -26,14 +26,10 @@
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
-			<key>com.apple.ctk.aid</key>
-			<string>___VARIABLE_smartCardAID___</string>
 			<key>com.apple.ctk.class-id</key>
 			<string>com.mwielgoszewski.SecureEnclaveToken.SecureEnclaveTokenExtension</string>
 			<key>com.apple.ctk.driver-class</key>
 			<string>$(PRODUCT_MODULE_NAME).TokenDriver</string>
-			<key>com.apple.ctk.token-type</key>
-			<string>smartcard</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.ctk-tokens</string>

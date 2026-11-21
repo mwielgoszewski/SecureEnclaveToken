@@ -1,0 +1,38 @@
+#!/bin/sh
+# Invoke the signed hosting app so its keychain and extension context is retained.
+set -eu
+
+launcher=$0
+case "$launcher" in
+    */*) ;;
+    *) launcher=$(command -v "$launcher") ;;
+esac
+links=0
+while [ -L "$launcher" ]; do
+    links=$((links + 1))
+    if [ "$links" -gt 40 ]; then
+        echo 'setoken: too many launcher symlinks' >&2
+        exit 126
+    fi
+    directory=$(CDPATH= cd -P "$(dirname "$launcher")" && pwd)
+    target=$(/usr/bin/readlink "$launcher")
+    case "$target" in
+        /*) launcher=$target ;;
+        *) launcher=$directory/$target ;;
+    esac
+done
+
+if [ -n "${SETOKEN_APP:-}" ]; then
+    app=$SETOKEN_APP
+else
+    directory=$(CDPATH= cd -P "$(dirname "$launcher")" && pwd)
+    # In the app bundle, this script lives in Contents/Resources.
+    app=$(dirname "$(dirname "$directory")")
+fi
+executable=$app/Contents/MacOS/SecureEnclaveToken
+if [ ! -x "$executable" ]; then
+    echo 'setoken: cannot find the signed SecureEnclaveToken app.' >&2
+    echo 'Reinstall the launcher from the app, or set SETOKEN_APP to its .app path.' >&2
+    exit 127
+fi
+exec "$executable" cli "$@"

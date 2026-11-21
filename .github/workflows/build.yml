@@ -1,0 +1,98 @@
+name: Build and test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: macOS Tahoe · Apple Silicon
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Show toolchain
+        run: |
+          uname -m
+          sw_vers
+          xcodebuild -version
+          swift --version
+          test "$(uname -m)" = arm64
+
+      - name: Test security and certificate code
+        run: |
+          set -o pipefail
+          swift test --force-resolved-versions 2>&1 | tee tests.log
+
+      - name: Test launcher and installer
+        run: python3 Tests/Launcher/test_launcher.py
+
+      - name: Build app and embedded extension
+        run: |
+          set -o pipefail
+          for configuration in Debug Release; do
+            xcodebuild \
+              -project SecureEnclaveToken.xcodeproj \
+              -scheme SecureEnclaveToken \
+              -configuration "$configuration" \
+              -destination 'generic/platform=macOS' \
+              -derivedDataPath build \
+              -disableAutomaticPackageResolution \
+              -onlyUsePackageVersionsFromResolvedFile \
+              ARCHS=arm64 \
+              CODE_SIGNING_ALLOWED=NO \
+              build 2>&1 | tee "build-$configuration.log"
+          done
+
+      - name: Smoke-test CLI entry point
+        run: |
+          app=build/Build/Products/Release/SecureEnclaveToken.app/Contents/MacOS/SecureEnclaveToken
+          "$app" cli --help > cli-help.log
+          "$app" cli self-sign --help >> cli-help.log
+          bundle=build/Build/Products/Release/SecureEnclaveToken.app
+          "$bundle/Contents/Resources/install-setoken" --bin-dir "$RUNNER_TEMP/setoken-bin"
+          "$RUNNER_TEMP/setoken-bin/setoken" --help >> cli-help.log
+          "$RUNNER_TEMP/setoken-bin/setoken" self-sign --help >> cli-help.log
+          if "$app" cli req unused -cn Test --extension '3.1.2=0500' > cli-invalid.log 2>&1; then
+            echo "CLI accepted an invalid OID"
+            exit 1
+          fi
+
+      - name: Verify and package unsigned build
+        run: |
+          app=build/Build/Products/Release/SecureEnclaveToken.app
+          extension="$app/Contents/PlugIns/SecureEnclaveTokenExtension.appex"
+          test -d "$extension"
+          test "$(lipo -archs "$app/Contents/MacOS/SecureEnclaveToken")" = arm64
+          test "$(lipo -archs "$extension/Contents/MacOS/SecureEnclaveTokenExtension")" = arm64
+          test "$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "$app/Contents/Info.plist")" = 26.0
+          test "$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "$extension/Contents/Info.plist")" = 26.0
+          ditto -c -k --sequesterRsrc --keepParent "$app" SecureEnclaveToken-unsigned-arm64.zip
+
+      - name: Upload unsigned build
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: SecureEnclaveToken-unsigned-arm64
+          path: SecureEnclaveToken-unsigned-arm64.zip
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload build and test logs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: build-logs
+          path: '*.log'
+          retention-days: 14
