@@ -7,6 +7,7 @@ struct SecureEnclaveTokenApp: App {
     var body: some Scene {
         Window("Secure Enclave Token", id: "main") {
             ContentView(model: model)
+                .background(MainWindowLifecycle())
         }
         .defaultSize(width: 850, height: 650)
         .windowResizability(.contentMinSize)
@@ -24,7 +25,38 @@ struct SecureEnclaveTokenApp: App {
         MenuBarExtra("Secure Enclave Token", systemImage: "key.horizontal") {
             TokenMenuView(model: model)
         }
-        .menuBarExtraStyle(.window)
+        .menuBarExtraStyle(.menu)
+    }
+}
+
+// Observe only the main window, without replacing SwiftUI's window delegate.
+// Closing a menu bar panel or a certificate dialog must not change app presence.
+private struct MainWindowLifecycle: NSViewRepresentable {
+    func makeNSView(context: Context) -> ObserverView { ObserverView() }
+    func updateNSView(_ nsView: ObserverView, context: Context) {}
+
+    final class ObserverView: NSView {
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            NotificationCenter.default.removeObserver(self)
+            guard let window else { return }
+            NotificationCenter.default.addObserver(
+                self, selector: #selector(windowWillClose),
+                name: NSWindow.willCloseNotification, object: window)
+            NotificationCenter.default.addObserver(
+                self, selector: #selector(windowDidBecomeKey),
+                name: NSWindow.didBecomeKeyNotification, object: window)
+        }
+
+        @objc private func windowWillClose(_ notification: Notification) {
+            NSApplication.shared.setActivationPolicy(.accessory)
+        }
+
+        @objc private func windowDidBecomeKey(_ notification: Notification) {
+            NSApplication.shared.setActivationPolicy(.regular)
+        }
+
+        deinit { NotificationCenter.default.removeObserver(self) }
     }
 }
 
@@ -33,37 +65,32 @@ private struct TokenMenuView: View {
     @Environment(\.openWindow) private var openWindow
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Label("Secure Enclave Token", systemImage: "key.horizontal.fill")
-                .font(.headline)
-            Label(model.identityStatus, systemImage: model.tokenLoaded && model.canUseKey ? "checkmark.shield.fill" : "shield")
-                .foregroundStyle(model.tokenLoaded && model.canUseKey ? .green : .secondary)
-            if !model.certificateName.isEmpty {
-                Text(model.certificateName).font(.callout).lineLimit(2)
-            }
-            if let error = model.errorMessage {
-                Text(error).font(.caption).foregroundStyle(.red)
-            }
-            Button("Open Secure Enclave Token") {
-                openWindow(id: "main")
-                NSApplication.shared.activate()
-            }
-            .buttonStyle(.borderedProminent)
-            .frame(maxWidth: .infinity)
-            Divider()
-            HStack {
-                Button("Refresh", systemImage: "arrow.clockwise") { Task { await model.refresh() } }
-                Spacer()
-                if model.isBusy { ProgressView().controlSize(.small) }
-                Button("Remove Identity") { Task { await model.unloadToken() } }
-                    .disabled(!model.tokenLoaded || !model.driverAvailable)
-            }
-            .disabled(model.isBusy)
-            Button("Quit Secure Enclave Token") { NSApplication.shared.terminate(nil) }
-                .keyboardShortcut("q")
+        Text(model.identityStatus)
+        if !model.certificateName.isEmpty {
+            Text(model.certificateName)
         }
-        .padding(20)
-        .frame(width: 340)
-        .task { await model.refresh() }
+        Divider()
+        Button("Open Secure Enclave Token", systemImage: "macwindow") {
+            NSApplication.shared.setActivationPolicy(.regular)
+            openWindow(id: "main")
+            NSApplication.shared.activate()
+        }
+        Button("Refresh Status", systemImage: "arrow.clockwise") {
+            Task { await model.refresh() }
+        }
+        .disabled(model.isBusy)
+        Button("Remove Selected Identity", systemImage: "person.crop.rectangle.badge.minus") {
+            Task { await model.unloadToken() }
+        }
+        .disabled(!model.tokenLoaded || !model.driverAvailable || model.isBusy)
+        Divider()
+        Button("About Secure Enclave Token") {
+            NSApplication.shared.orderFrontStandardAboutPanel(nil)
+            NSApplication.shared.activate()
+        }
+        Button("Quit Secure Enclave Token", systemImage: "power") {
+            NSApplication.shared.terminate(nil)
+        }
+        .keyboardShortcut("q")
     }
 }

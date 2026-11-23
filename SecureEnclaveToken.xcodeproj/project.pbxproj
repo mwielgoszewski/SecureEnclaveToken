@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A40000000000000000000011 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A40000000000000000000001 /* AppIcon.icon */; };
 		BD60D39425D58D6F0075CC34 /* SecureEnclaveTokenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D39325D58D6F0075CC34 /* SecureEnclaveTokenApp.swift */; };
 		BD60D39625D58D6F0075CC34 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60D39525D58D6F0075CC34 /* ContentView.swift */; };
 		BD60D39825D58D6F0075CC34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD60D39725D58D6F0075CC34 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A40000000000000000000001 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		BD60D39025D58D6F0075CC34 /* SecureEnclaveToken.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecureEnclaveToken.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD60D39325D58D6F0075CC34 /* SecureEnclaveTokenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveTokenApp.swift; sourceTree = "<group>"; };
 		BD60D39525D58D6F0075CC34 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				BD60D39525D58D6F0075CC34 /* ContentView.swift */,
 				BD60D3C125D58E5A0075CC34 /* TokenModel.swift */,
 				BD60D39725D58D6F0075CC34 /* Assets.xcassets */,
+				A40000000000000000000001 /* AppIcon.icon */,
 				BD60D39F25D58D6F0075CC34 /* Info.plist */,
 				BD60D3A025D58D6F0075CC34 /* SecureEnclaveToken.entitlements */,
 				BD60D39925D58D6F0075CC34 /* Preview Content */,
@@ -289,6 +292,7 @@
 				A30000000000000000000011 /* setoken in Resources */,
 				A30000000000000000000012 /* install-setoken in Resources */,
 				BD60D39825D58D6F0075CC34 /* Assets.xcassets in Resources */,
+				A40000000000000000000011 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

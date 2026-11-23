@@ -1,0 +1,69 @@
+{
+  "fill": {
+    "automatic-gradient": "extended-srgb:0.08500,0.09000,0.10500,1.00000"
+  },
+  "groups": [
+    {
+      "name": "Key",
+      "layers": [
+        {
+          "image-name": "Key.svg",
+          "name": "Key",
+          "glass": false
+        }
+      ],
+      "translucency": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.1
+      },
+      "specular": false
+    },
+    {
+      "name": "Chip",
+      "layers": [
+        {
+          "image-name": "Chip.svg",
+          "name": "Chip",
+          "glass": false
+        }
+      ],
+      "translucency": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.1
+      },
+      "specular": false
+    },
+    {
+      "name": "Contacts",
+      "layers": [
+        {
+          "image-name": "Contacts.svg",
+          "name": "Contacts",
+          "glass": false
+        }
+      ],
+      "translucency": {
+        "enabled": false,
+        "value": 0.0
+      },
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.1
+      },
+      "specular": false
+    }
+  ],
+  "supported-platforms": {
+    "squares": [
+      "macOS"
+    ]
+  }
+}

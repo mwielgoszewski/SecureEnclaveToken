@@ -96,9 +96,11 @@ key’s certificate without changing other identities.
   after a confirmation naming the key.
 - The toolbar buttons provide **Add Key**, **Import Certificate**, and
   **Refresh**. Hover over them for descriptions.
-- The menu bar key icon can reopen the window, refresh status, remove the
-  selected identity, or quit. Closing the window leaves the menu bar item
-  running; quitting does not remove published identities.
+- The menu bar key icon opens a native dropdown to reopen the window, refresh
+  status, remove the selected identity, show About, or quit. Closing the window hides the Dock icon and app
+  menus while leaving the menu bar item running. Reopening the window from
+  that item restores the Dock icon and app menus. Quitting does not remove
+  published identities.
 
 ## SSH
 
@@ -305,6 +307,10 @@ Hardware Secure Enclave, Touch ID, and browser integration require a signed
 build on a physical Mac.
 
 ## Maintenance and troubleshooting
+
+The product website lives in [`website/`](website/README.md). It is a static,
+responsive page with a screenshot tour and SSH, mTLS, and CLI setup guidance.
+Serve `website/dist/` locally or deploy its contents to a static host.
 
 Certificates and CSRs use Apple’s [swift-certificates](https://github.com/apple/swift-certificates)
 1.21.1. The CLI uses [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
