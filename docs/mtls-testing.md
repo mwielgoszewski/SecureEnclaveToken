@@ -29,6 +29,11 @@ f8e7121ce43e6276b916d9d486d4fa18204df2bdc1201b0087e80ed1bf1a9e2e
 
 ![Chrome mTLS success](images/chrome-mtls.png)
 
+The screenshot was refreshed on **2026-11-23** using a new disposable identity
+and a single Chrome tab. That capture verified TLS 1.2 with client certificate
+SHA-256 `7e2e7eccaf5ac2874dfcb88d6fef34a26866f22ca5f63d99002eab405161c737`.
+The TLS 1.2 / 1.3 results above refer to the original November 21 test.
+
 The disposable key used `none` / `whenUnlocked`, so this run did **not** test
 Touch ID prompts, prompt cancellation, or a particular enterprise server. It
 used a CA-issued client certificate rather than a self-signed client leaf.

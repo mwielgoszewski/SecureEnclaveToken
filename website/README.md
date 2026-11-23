@@ -18,7 +18,7 @@ integration tabs, screenshot enlargement, copyable examples, and FAQ disclosures
 
 Upload the contents of `dist/` to any static host. No Node.js installation,
 package manager, framework build, or server runtime is needed for this page.
-The `.openai/hosting.json` file identifies the separate private Sites preview.
+The `.openai/hosting.json` file identifies the separate Sites deployment.
 The source in this directory is also kept in the main app repository.
 
 The intended public domain is `setoken.dev`. It has not been purchased or

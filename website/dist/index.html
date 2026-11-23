@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111210">
-  <meta name="description" content="Secure Enclave Token turns your Mac’s Secure Enclave into a home for hardware-backed SSH and client certificate identities. Native macOS app. Open source.">
-  <meta property="og:title" content="Secure Enclave Token — Your keys. Your Mac.">
-  <meta property="og:description" content="Hardware-backed keys. A native Mac experience. Create identities for SSH, client certificates, and signing, with private keys that stay in the Secure Enclave.">
+  <meta name="theme-color" content="#f8f9fa">
+  <meta name="description" content="Create Secure Enclave keys and manage certificates on macOS. Use them for SSH and client authentication through CryptoTokenKit.">
+  <meta property="og:title" content="Secure Enclave Token for macOS">
+  <meta property="og:description" content="An open-source macOS app for Secure Enclave keys, certificates, SSH, and client authentication.">
   <meta property="og:type" content="website">
-  <title>Secure Enclave Token — Your keys. Your Mac.</title>
+  <title>Secure Enclave Token for macOS</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
@@ -27,55 +27,33 @@
   <main id="main">
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">SECURE ENCLAVE TOKEN FOR MAC</p>
-        <h1 id="hero-title">Your keys.<br>Your Mac.<br><span>No way out.</span></h1>
-        <p class="hero-description">A native home for hardware-backed identities. Create keys in your Mac’s Secure Enclave. Put them to work with SSH, client certificates, and signing.</p>
-        <div class="actions"><a class="button primary" href="#get-started">Get started</a><a class="text-link" href="#app">Explore the app</a></div>
-        <p class="compatibility"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M2 20h20M9 16v4m6-4v4"/></svg> Apple Silicon <span aria-hidden="true">/</span> macOS Tahoe 26+</p>
+        <h1 id="hero-title">Secure Enclave Token</h1>
+        <p class="hero-description">Create and manage keys in your Mac’s Secure Enclave. Use them for SSH and client certificate authentication, with a macOS app and command-line interface.</p>
+        <div class="actions"><a class="button primary" href="#get-started">Build from source</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a></div>
+        <p class="compatibility">Apple Silicon · macOS Tahoe 26 or later</p>
       </div>
-      <div class="hero-art">
-        <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
-        <div class="art-caption top-caption"><span class="mini-line"></span> HARDWARE-BOUND BY DESIGN</div>
-        <img class="hero-icon" src="assets/app-icon.png" width="1024" height="1024" alt="A silver key inside a charcoal chip with squared contacts" fetchpriority="high">
-        <div class="art-caption bottom-caption"><span class="chip-label">P-256</span><span>Private key stays in the Secure Enclave</span></div>
-      </div>
+      <img class="hero-icon" src="assets/app-icon.png" width="1024" height="1024" alt="Silver key inside a charcoal chip" fetchpriority="high">
     </section>
-    <div class="standards"><div class="container"><span>Built on the Mac’s security foundations</span><ul aria-label="Technologies"><li>Secure Enclave</li><li>CryptoTokenKit</li><li>X.509</li><li>Swift</li></ul></div></div>
-
     <section class="section container app-section" id="app" aria-labelledby="app-title">
-      <div class="section-heading"><div><p class="eyebrow">A SMALL APP. A STRONG FOUNDATION.</p><h2 id="app-title">Meet your<br>identity manager.</h2></div><p>Your keys and certificates, together in one place. Keep multiple identities ready, with a native interface that feels at home on your Mac.</p></div>
+      <div class="section-heading"><h2 id="app-title">Keys and certificates</h2><p>Manage multiple keys, generate signing requests, and load certificates for compatible macOS clients.</p></div>
       <div class="product-tour">
         <div class="tour-controls" role="tablist" aria-label="Explore the app">
           <button id="tab-identity" type="button" role="tab" aria-selected="true" aria-controls="tour-panel" data-tour="identity">Manage identities</button>
           <button id="tab-create" type="button" role="tab" aria-selected="false" aria-controls="tour-panel" tabindex="-1" data-tour="create">Create a key</button>
-          <button id="tab-extensions" type="button" role="tab" aria-selected="false" aria-controls="tour-panel" tabindex="-1" data-tour="extensions">Make it yours</button>
+          <button id="tab-extensions" type="button" role="tab" aria-selected="false" aria-controls="tour-panel" tabindex="-1" data-tour="extensions">Certificate options</button>
         </div>
         <div id="tour-panel" role="tabpanel" aria-labelledby="tab-identity" tabindex="0">
-          <figure><button class="screenshot-button" type="button" aria-label="Enlarge the application screenshot"><img id="tour-image" src="assets/identity.png" width="1700" height="1344" alt="Secure Enclave Token showing a loaded client certificate and identity controls" loading="lazy"></button><figcaption id="tour-caption">Keep the certificate with its key. Export it, replace it, or remove the identity while keeping the private key.</figcaption></figure>
+          <figure><button class="screenshot-button" type="button" aria-label="Enlarge the application screenshot"><img id="tour-image" src="assets/identity.png" width="1700" height="1344" alt="Secure Enclave Token showing a loaded client certificate and identity controls" loading="lazy"></button><figcaption id="tour-caption">Export or replace a certificate, or remove the loaded identity while retaining its key.</figcaption></figure>
         </div>
       </div>
-      <div class="feature-row">
-        <article><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="8" width="16" height="16" rx="3"/><path d="M12 3v5m8-5v5M12 24v5m8-5v5M3 12h5m-5 8h5m16-8h5m-5 8h5"/><circle cx="16" cy="16" r="3"/></svg><h3>Keys that stay put.</h3><p>The private key is created in the Secure Enclave and cannot be exported. Choose its authentication policy when you create it.</p></article>
-        <article><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 3h12l6 6v20H7zM19 3v7h6M12 15h8m-8 5h8m-8 5h5"/></svg><h3>Certificates, your way.</h3><p>Create a CSR or a self-signed identity. Set key usages, alternative names, custom OIDs, and arbitrary X.509 extensions.</p></article>
-        <article><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="22" rx="4"/><path d="m8 12 5 4-5 4m9 0h7"/></svg><h3>Native. And scriptable.</h3><p>Manage identities in the app or use <code>setoken</code> in your terminal. Close the window and keep the menu bar controls within reach.</p></article>
-      </div>
+      <aside class="key-note"><h3>Where the private key lives</h3><p>Keys are generated in the Secure Enclave and cannot be exported or restored on another Mac. The app’s CryptoTokenKit extension lets compatible clients request private-key operations. Certificates and public keys can be exported.</p></aside>
     </section>
 
-    <section class="how-section" aria-labelledby="how-title"><div class="container">
-      <div class="section-heading"><div><p class="eyebrow">THE KEY NEVER LEAVES</p><h2 id="how-title">An identity your apps<br>can use. A key they can’t take.</h2></div><p>CryptoTokenKit makes the certificate and key available to compatible macOS clients. Private-key operations happen through the Secure Enclave.</p></div>
-      <div class="flow" aria-label="A client requests an operation through CryptoTokenKit, and the Secure Enclave uses the private key">
-        <div class="flow-item"><span class="flow-label">YOUR CLIENT</span><strong>SSH · Browser · App</strong><span>Requests a private-key operation</span></div><div class="flow-connector" aria-hidden="true"></div>
-        <div class="flow-item"><span class="flow-label">MACOS</span><strong>CryptoTokenKit</strong><span>Connects the client to your identity</span></div><div class="flow-connector" aria-hidden="true"></div>
-        <div class="flow-item flow-secure"><span class="flow-label">HARDWARE</span><strong>Secure Enclave</strong><span>Uses the private key on this Mac</span></div>
-      </div>
-      <p class="how-note">Your certificate and public key can be shared. Your private key cannot be backed up or moved to another Mac.</p>
-    </div></section>
-
     <section class="section container integrations" id="integrations" aria-labelledby="integration-title">
-      <div class="section-heading"><div><p class="eyebrow">PUT YOUR IDENTITY TO WORK</p><h2 id="integration-title">Made for your<br>actual workflow.</h2></div><p>Use the tools you already know, with a private key protected by the hardware you already own.</p></div>
+      <div class="section-heading"><h2 id="integration-title">Using an identity</h2><p>A loaded identity pairs a certificate with its Secure Enclave key.</p></div>
       <div class="integration-tabs" role="tablist" aria-label="Integration guides"><button type="button" id="tab-ssh" role="tab" aria-selected="true" aria-controls="panel-ssh">SSH</button><button type="button" id="tab-mtls" role="tab" aria-selected="false" aria-controls="panel-mtls" tabindex="-1">Client certificates</button><button type="button" id="tab-cli" role="tab" aria-selected="false" aria-controls="panel-cli" tabindex="-1">Command line</button></div>
       <div class="integration-panel" id="panel-ssh" role="tabpanel" aria-labelledby="tab-ssh" tabindex="0">
-        <div class="integration-copy"><h3>Your Mac is<br>your SSH key.</h3><p>Load an identity, then export a resident-key reference with Apple’s SSH tools. Add its public key to GitHub or your server, and point SSH to the macOS keychain provider.</p><p class="subtle">The file on disk is a reference. The private key stays in the Secure Enclave. Keep the identity loaded when connecting.</p><details class="inline-guide"><summary>Export a resident-key reference</summary><p>With an identity loaded, run these commands in a new, empty directory. Add the resulting <code>id_ecdsa_sk_rk.pub</code> to your remote account’s authorized keys, then use the configuration shown here.</p><pre><code>mkdir -p ~/.ssh/secure-enclave-token
+        <div class="integration-copy"><h3>SSH with the macOS keychain</h3><p>Load an identity, then export a resident-key reference with Apple’s SSH tools. Add its public key to GitHub or your server, and point SSH to the macOS keychain provider.</p><p class="subtle">The file on disk is a reference. The private key stays in the Secure Enclave. Keep the identity loaded when connecting.</p><details class="inline-guide"><summary>Export a resident-key reference</summary><p>With an identity loaded, run these commands in a new, empty directory. Add the resulting <code>id_ecdsa_sk_rk.pub</code> to your remote account’s authorized keys, then use the configuration shown here.</p><pre><code>mkdir -p ~/.ssh/secure-enclave-token
 cd ~/.ssh/secure-enclave-token
 SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=/usr/bin/true \
   /usr/bin/ssh-keygen -w /usr/lib/ssh-keychain.dylib -K</code></pre><p>To choose among multiple identities, consult <code>man ssh-keychain</code> for the <code>KEYCHAIN_CERTIFICATES</code> filter.</p></details></div>
@@ -86,11 +64,11 @@ SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=/usr/bin/true \
   <span class="code-keyword">IdentitiesOnly</span> yes</code></pre><div class="code-footer">Use Apple’s /usr/bin/ssh and a server that accepts security-key SSH identities.</div></div>
       </div>
       <div class="integration-panel" id="panel-mtls" role="tabpanel" aria-labelledby="tab-mtls" tabindex="0" hidden>
-        <div class="integration-copy"><h3>A client certificate.<br>A hardware-backed key.</h3><p>Create a CSR with client authentication enabled, have it signed by a CA your server accepts, then import it. Chrome can discover the loaded identity and use it for mutual TLS.</p><p class="subtle">Verified locally with Chrome over TLS 1.2 and TLS 1.3. That test used a key without additional authentication; Chrome’s Touch ID prompt flow remains untested.</p><details class="inline-guide"><summary>Read the mTLS test record</summary><p>Tested November 21, 2026 on Apple Silicon, macOS 26.4.1, and Chrome 158.0.8127.36. A disposable P-256 key and a locally issued client certificate completed both TLS 1.2 and TLS 1.3 authentication. The server verified the exact certificate and rejected a connection without one.</p><p>The browser used a temporary profile and an exact SPKI exception for the local server certificate. System trust settings were unchanged. The test identity and temporary files were removed afterward.</p></details></div>
-        <div class="mtls-preview"><img src="assets/chrome-mtls.png" width="2100" height="1480" alt="Chrome displaying a successful, locally verified mutual TLS connection" loading="lazy"><p>The server must accept the client’s issuer. The browser must also trust the server.</p></div>
+        <div class="integration-copy"><h3>Client authentication in Chrome</h3><p>Create a CSR with client authentication enabled, have it signed by a CA your server accepts, then import it. Chrome can discover the loaded identity and use it for mutual TLS.</p><p class="subtle">Verified locally with Chrome over TLS 1.2 and TLS 1.3. That test used a key without additional authentication; Chrome’s Touch ID prompt flow remains untested.</p><details class="inline-guide"><summary>Read the mTLS test record</summary><p>Tested November 21, 2026 on Apple Silicon, macOS 26.4.1, and Chrome 158.0.8127.36. A disposable P-256 key and a locally issued client certificate completed both TLS 1.2 and TLS 1.3 authentication. The server verified the exact certificate and rejected a connection without one.</p><p>The browser used a temporary profile and an exact SPKI exception for the local server certificate. System trust settings were unchanged. The test identity and temporary files were removed afterward.</p></details></div>
+        <div class="mtls-preview"><img src="assets/chrome-mtls.png" width="2100" height="1480" alt="Chrome displaying a successful, locally verified mutual TLS connection" loading="lazy"><p>Single-tab capture from November 23, 2026, using a new disposable identity over TLS 1.2.</p></div>
       </div>
       <div class="integration-panel" id="panel-cli" role="tabpanel" aria-labelledby="tab-cli" tabindex="0" hidden>
-        <div class="integration-copy"><h3>A few commands.<br>A complete identity.</h3><p>The <code>setoken</code> launcher uses the signed app’s CLI without opening the window. Create keys, generate CSRs, load certificates, and manage identities from your shell.</p><p class="subtle">Install the bundled launcher first. These commands create a new key named <code>work</code> with user-presence authentication and save its self-signed certificate.</p><details class="inline-guide"><summary>Install the command-line launcher</summary><p>Run the installer from your signed app’s actual location, then add the launcher directory to your PATH:</p><pre><code>"/Applications/SecureEnclaveToken.app/Contents/Resources/install-setoken"
+        <div class="integration-copy"><h3>The setoken CLI</h3><p>The <code>setoken</code> launcher uses the signed app’s CLI without opening the window. Create keys, generate CSRs, load certificates, and manage identities from your shell.</p><p class="subtle">Install the bundled launcher first. These commands create a new key named <code>work</code> with user-presence authentication and save its self-signed certificate.</p><details class="inline-guide"><summary>Install the command-line launcher</summary><p>Run the installer from your signed app’s actual location, then add the launcher directory to your PATH:</p><pre><code>"/Applications/SecureEnclaveToken.app/Contents/Resources/install-setoken"
 export PATH="$HOME/.local/bin:$PATH"</code></pre><p>Use <code>setoken --help</code> for the command list and <code>setoken self-sign --help</code> for certificate options. The app and CLI share the same identities.</p></details></div>
         <div class="code-card"><div class="code-header"><span>Terminal</span><button type="button" class="copy-button" data-copy="cli-code">Copy</button></div><pre><code id="cli-code"><span class="code-comment"># Create a hardware-backed key</span>
 setoken new work \
@@ -103,16 +81,17 @@ setoken self-sign work \
   --days 365 &gt; work.pem
 
 <span class="code-comment"># Inspect published identities</span>
-setoken token list</code></pre><div class="code-footer">Your terminal handles the files. The Secure Enclave handles the private key.</div></div>
+setoken token list</code></pre><div class="code-footer">The self-sign command saves a PEM certificate and loads the identity.</div></div>
       </div>
     </section>
 
     <section class="get-started-section" id="get-started" aria-labelledby="start-title"><div class="container start-grid">
-      <div><img src="assets/favicon.png" width="64" height="64" alt="" loading="lazy"><p class="eyebrow">OPEN SOURCE. BUILT FOR MAC.</p><h2 id="start-title">Make this Mac<br>your token.</h2><p>Start with the source. Build a signed copy, create your first key, and give it an identity.</p><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken">View on GitHub</a></div>
-      <ol class="setup-list"><li><h3>Build the app</h3><p>Open the project in Xcode 26 or later. Choose your Apple Developer team for the app and extension, then run on an Apple Silicon Mac with macOS Tahoe.</p></li><li><h3>Create a key</h3><p>Give it a name and choose when it’s available. The app defaults to an unlocked Mac with Touch ID or password authentication.</p></li><li><h3>Add its identity</h3><p>Create a self-signed certificate or import one from your CA. The app associates it with the selected key and publishes the identity.</p></li></ol>
+      <div><h2 id="start-title">Build and set up</h2><p>You’ll need Xcode 26 or later and an Apple Developer team to sign the app and its extension. CI artifacts are unsigned and are intended for build verification.</p><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken">View on GitHub</a></div>
+      <ol class="setup-list"><li><h3>Build the app</h3><p>Open the project in Xcode 26 or later. Choose your Apple Developer team for the app and extension, then run on an Apple Silicon Mac with macOS Tahoe.</p></li><li><h3>Create a key</h3><p>Name the key and choose its availability and authentication policy. These settings are fixed when the key is created.</p></li><li><h3>Add its identity</h3><p>Create a self-signed certificate or import one from your CA. The app associates it with the selected key and publishes the identity.</p></li></ol>
     </div></section>
 
-    <section class="section container faq-section" id="questions" aria-labelledby="faq-title"><div><p class="eyebrow">A FEW THINGS TO KNOW</p><h2 id="faq-title">Before you<br>make a key.</h2></div><div class="faq-list">
+    <section class="section container faq-section" id="questions" aria-labelledby="faq-title"><div><h2 id="faq-title">Questions</h2></div><div class="faq-list">
+      <details><summary>Can I store bearer tokens or API credentials?</summary><p>Not currently. SEToken manages private keys generated in the Secure Enclave and their certificates. It does not store bearer tokens, API keys, or passwords.</p><p>macOS Keychain is designed to store those secrets with encryption and access controls. A bearer token still needs to be retrieved and sent to the service when used. If your service supports client certificate authentication (mTLS), SEToken can provide that identity instead.</p></details>
       <details><summary>Can I move a key to another Mac?</summary><p>No. Secure Enclave private keys cannot be exported or restored from a backup. On another Mac, create a new key and certificate, then update any services that use the old public key.</p></details>
       <details><summary>Do I need a certificate authority?</summary><p>You can create a self-signed certificate directly in the app. For client authentication to a service, use a certificate issued by a CA the server accepts, or configure that server to accept your self-signed certificate. Creating an identity does not change system trust.</p></details>
       <details><summary>Can I keep more than one identity?</summary><p>Yes. Manage multiple keys from the sidebar and keep multiple identities loaded. Replacing or removing one key’s certificate leaves the others intact.</p></details>
@@ -121,7 +100,7 @@ setoken token list</code></pre><div class="code-footer">Your terminal handles th
       <details><summary>Where can I find a ready-to-install build?</summary><p>The setup documented here uses a signed build from source. GitHub CI produces unsigned artifacts for build verification; those are not ready-to-use signed releases. Follow the repository’s build instructions to get started.</p></details>
     </div></section>
   </main>
-  <footer class="container"><a class="brand" href="#"><img src="assets/favicon.png" width="32" height="32" alt=""><span>setoken<span class="brand-suffix">.dev</span></span></a><p>Secure Enclave Token<br><span>Private keys, at home in your Mac.</span></p><div><a href="https://github.com/mwielgoszewski/SecureEnclaveToken">Source</a><a href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a><a href="https://github.com/mwielgoszewski/SecureEnclaveToken/issues">Issues</a></div></footer>
+  <footer class="container"><a class="brand" href="#"><img src="assets/favicon.png" width="32" height="32" alt=""><span>setoken<span class="brand-suffix">.dev</span></span></a><p>Secure Enclave Token<br><span>Open source for macOS</span></p><div><a href="https://github.com/mwielgoszewski/SecureEnclaveToken">Source</a><a href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a><a href="https://github.com/mwielgoszewski/SecureEnclaveToken/issues">Issues</a></div></footer>
   <dialog id="image-dialog" aria-label="Application screenshot"><button class="dialog-close" type="button" autofocus>Close preview <span aria-hidden="true">×</span></button><img id="dialog-image" alt=""></dialog>
   <p id="copy-status" class="sr-only" role="status" aria-live="polite"></p>
 </body>

@@ -1,7 +1,7 @@
 const tour = {
-  identity: { image: 'assets/identity.png', alt: 'Secure Enclave Token showing a loaded client certificate and identity controls', caption: 'Keep the certificate with its key. Export it, replace it, or remove the identity while keeping the private key.' },
-  create: { image: 'assets/create-key.png', alt: 'New key dialog with a name, availability policy, and authentication policy', caption: 'Give each key a name and choose its availability and authentication policy. These policies are fixed at creation.' },
-  extensions: { image: 'assets/certificate-extensions.png', alt: 'Certificate form with standard extended key usage checkboxes and custom OID controls', caption: 'Choose standard usages with a checkbox, or add custom OIDs and X.509 extensions for the identity you need.' }
+  identity: { image: 'assets/identity.png', alt: 'Secure Enclave Token showing a loaded client certificate and identity controls', caption: 'Export or replace a certificate, or remove the loaded identity while retaining its key.' },
+  create: { image: 'assets/create-key.png', alt: 'New key dialog with a name, availability policy, and authentication policy', caption: 'Name a key and choose its availability and authentication policy. These settings are fixed at creation.' },
+  extensions: { image: 'assets/certificate-extensions.png', alt: 'Certificate form with standard extended key usage checkboxes and custom OID controls', caption: 'Set extended key usages, subject alternative names, custom OIDs, and X.509 extensions.' }
 };
 function activateTab(tab) {
   const list = tab.closest('[role="tablist"]');
