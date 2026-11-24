@@ -130,3 +130,6 @@ dialog img { max-height: 80vh; max-width: 100%; object-fit: contain; margin: aut
   footer > div { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.faq-list { min-width: 0; }
+.download-checksum { overflow-wrap: anywhere; }

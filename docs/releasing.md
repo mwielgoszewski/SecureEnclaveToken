@@ -225,12 +225,14 @@ Do not distribute the pre-stapling `notarization.zip`.
 7. Verify these links before deploying the prepared website changes:
 
    - [Signed ZIP](https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip)
-   - [Checksum](https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip.sha256)
    - [Release notes](https://github.com/mwielgoszewski/SecureEnclaveToken/releases/tag/v3.0)
 
-The [website source](../website/README.md) is prepared for those exact asset names.
-Keep it staged until the release is public. Updating the app repository does not
-deploy the separate Sites copy.
+The [website source](../website/README.md) links to the signed ZIP and release
+notes, and displays the published ZIP checksum in its download FAQ. Update that
+checksum whenever the downloadable file changes. If a separate `.sha256` asset
+is uploaded, verify it too before linking to it. Keep website changes staged
+until their release is public. Updating the app repository does not deploy the
+separate Sites copy.
 
 ## Validation record
 
