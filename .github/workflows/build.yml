@@ -2,7 +2,27 @@ name: Build and test
 
 on:
   push:
+    paths:
+      - 'SecureEnclaveToken/**'
+      - 'SecureEnclaveTokenExtension/**'
+      - 'Shared/**'
+      - 'SecureEnclaveToken.xcodeproj/**'
+      - 'Package.swift'
+      - 'Package.resolved'
+      - 'Scripts/**'
+      - 'Tests/**'
+      - '.github/workflows/**'
   pull_request:
+    paths:
+      - 'SecureEnclaveToken/**'
+      - 'SecureEnclaveTokenExtension/**'
+      - 'Shared/**'
+      - 'SecureEnclaveToken.xcodeproj/**'
+      - 'Package.swift'
+      - 'Package.resolved'
+      - 'Scripts/**'
+      - 'Tests/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 permissions:
@@ -38,6 +58,11 @@ jobs:
 
       - name: Test launcher and installer
         run: python3 Tests/Launcher/test_launcher.py
+
+      - name: Test release signing validation
+        run: |
+          python3 -B Tests/CI/test_signing.py
+          python3 -B Tests/CI/test_sign_local.py
 
       - name: Build app and embedded extension
         run: |
@@ -79,7 +104,18 @@ jobs:
           test "$(lipo -archs "$extension/Contents/MacOS/SecureEnclaveTokenExtension")" = arm64
           test "$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "$app/Contents/Info.plist")" = 26.0
           test "$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "$extension/Contents/Info.plist")" = 26.0
+          version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist")
+          build_number=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$app/Contents/Info.plist")
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$extension/Contents/Info.plist")" = "$version"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$extension/Contents/Info.plist")" = "$build_number"
           ditto -c -k --sequesterRsrc --keepParent "$app" SecureEnclaveToken-unsigned-arm64.zip
+          {
+            echo "### SecureEnclaveToken $version (build $build_number)"
+            echo "Source commit: $GITHUB_SHA"
+            echo
+            echo 'This artifact is unsigned. Sign and notarize it locally before installing or publishing.'
+            echo "[Local release instructions]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/blob/$GITHUB_SHA/docs/releasing.md)"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload unsigned build
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7

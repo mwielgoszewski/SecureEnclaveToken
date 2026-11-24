@@ -25,6 +25,21 @@ The intended public domain is `setoken.dev`. It has not been purchased or
 connected by this project. After purchasing it, connect it to your chosen host
 and configure HTTPS. This matters because `.dev` domains require HTTPS in browsers.
 
-The page links to the public GitHub source and build instructions, rather than
-claiming a signed installer exists. Update those links when a signed release is
-available. Refresh screenshots from `docs/images/` when the app UI changes.
+## Release downloads
+
+The prepared page links directly to the `v3.0` GitHub release assets:
+
+- `SecureEnclaveToken-signed-arm64.zip`
+- `SecureEnclaveToken-signed-arm64.zip.sha256`
+
+Keep these website changes staged until the signed release is published. The
+version-specific URLs deliberately do not use `releases/latest`, which currently
+could send visitors to the older 2.0 release. After publishing `v3.0`, verify the
+ZIP, checksum, and release-notes URLs before deploying `dist/` or synchronizing
+the separate Sites deployment. Updating this repository alone does not deploy
+the Sites copy.
+
+For later versions, update the hero version, both download buttons, checksum
+link, release-notes link, and FAQ release link in `dist/index.html` together.
+Follow [the release guide](../docs/releasing.md). Refresh screenshots from
+`docs/images/` when the app UI changes.

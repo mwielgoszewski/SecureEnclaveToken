@@ -29,8 +29,8 @@
       <div class="hero-copy">
         <h1 id="hero-title">Secure Enclave Token</h1>
         <p class="hero-description">Create and manage keys in your Mac’s Secure Enclave. Use them for SSH and client certificate authentication, with a macOS app and command-line interface.</p>
-        <div class="actions"><a class="button primary" href="#get-started">Build from source</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a></div>
-        <p class="compatibility">Apple Silicon · macOS Tahoe 26 or later</p>
+        <div class="actions"><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip">Download for Mac</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a></div>
+        <p class="compatibility">Version 3.0 · Apple Silicon · macOS Tahoe 26 or later</p>
       </div>
       <img class="hero-icon" src="assets/app-icon.png" width="1024" height="1024" alt="Silver key inside a charcoal chip" fetchpriority="high">
     </section>
@@ -86,8 +86,8 @@ setoken token list</code></pre><div class="code-footer">The self-sign command sa
     </section>
 
     <section class="get-started-section" id="get-started" aria-labelledby="start-title"><div class="container start-grid">
-      <div><h2 id="start-title">Build and set up</h2><p>You’ll need Xcode 26 or later and an Apple Developer team to sign the app and its extension. CI artifacts are unsigned and are intended for build verification.</p><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken">View on GitHub</a></div>
-      <ol class="setup-list"><li><h3>Build the app</h3><p>Open the project in Xcode 26 or later. Choose your Apple Developer team for the app and extension, then run on an Apple Silicon Mac with macOS Tahoe.</p></li><li><h3>Create a key</h3><p>Name the key and choose its availability and authentication policy. These settings are fixed when the key is created.</p></li><li><h3>Add its identity</h3><p>Create a self-signed certificate or import one from your CA. The app associates it with the selected key and publishes the identity.</p></li></ol>
+      <div><h2 id="start-title">Download and set up</h2><p>Get the signed and notarized app for Apple Silicon Macs running macOS Tahoe 26 or later. No Xcode or Apple Developer account is needed to use the release.</p><div class="actions"><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip">Download version 3.0</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/tag/v3.0">Release notes</a></div><p><a href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip.sha256">SHA-256 checksum</a> · <a href="https://github.com/mwielgoszewski/SecureEnclaveToken#building">Build from source</a></p></div>
+      <ol class="setup-list"><li><h3>Install the app</h3><p>Unzip the download, move SecureEnclaveToken.app to Applications, and open it. If the token extension is unavailable, enable it in System Settings → General → Login Items &amp; Extensions → Smart Card Readers, then refresh the app.</p></li><li><h3>Create a key</h3><p>Name the key and choose its availability and authentication policy. These settings are fixed when the key is created.</p></li><li><h3>Add its identity</h3><p>Create a self-signed certificate or import one from your CA. The app associates it with the selected key and publishes the identity.</p></li></ol>
     </div></section>
 
     <section class="section container faq-section" id="questions" aria-labelledby="faq-title"><div><h2 id="faq-title">Questions</h2></div><div class="faq-list">
@@ -97,7 +97,7 @@ setoken token list</code></pre><div class="code-footer">The self-sign command sa
       <details><summary>Can I keep more than one identity?</summary><p>Yes. Manage multiple keys from the sidebar and keep multiple identities loaded. Replacing or removing one key’s certificate leaves the others intact.</p></details>
       <details><summary>What happens when I close the app window?</summary><p>The Dock icon and app menus disappear while the menu bar dropdown stays available. Open the window again from the menu bar. Quitting the app does not remove published identities.</p></details>
       <details><summary>Does it work on Intel Macs or older macOS versions?</summary><p>This version targets Apple Silicon and requires macOS Tahoe 26.0 or later. Building it requires Xcode 26 or later. Keychain and CryptoTokenKit access require a signed app and extension.</p></details>
-      <details><summary>Where can I find a ready-to-install build?</summary><p>The setup documented here uses a signed build from source. GitHub CI produces unsigned artifacts for build verification; those are not ready-to-use signed releases. Follow the repository’s build instructions to get started.</p></details>
+      <details><summary>Where can I find a ready-to-install build?</summary><p>Download the signed and notarized app from the <a href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/tag/v3.0">version 3.0 release</a>. Unzip it and move the app to Applications. GitHub Actions artifacts are unsigned build checks; use the release download for installation.</p></details>
     </div></section>
   </main>
   <footer class="container"><a class="brand" href="#"><img src="assets/favicon.png" width="32" height="32" alt=""><span>setoken<span class="brand-suffix">.dev</span></span></a><p>Secure Enclave Token<br><span>Open source for macOS</span></p><div><a href="https://github.com/mwielgoszewski/SecureEnclaveToken">Source</a><a href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a><a href="https://github.com/mwielgoszewski/SecureEnclaveToken/issues">Issues</a></div></footer>

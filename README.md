@@ -9,8 +9,14 @@ identities can be loaded at the same time.
 
 ## Getting started
 
-Build and run a signed copy of the app using the [build instructions](#building).
-The app and extension must use the same signing team and keychain access group.
+Download the signed and notarized app from [GitHub Releases](https://github.com/mwielgoszewski/SecureEnclaveToken/releases).
+Version 3.0 targets Apple Silicon and macOS Tahoe 26 or later. Unzip the release
+download, move `SecureEnclaveToken.app` to Applications, and open it. Xcode and
+an Apple Developer account are only needed to [build from source](#building).
+GitHub Actions artifacts are unsigned build checks, not installable releases.
+
+If building locally, the app and extension must use the same signing team and
+keychain access group. Changing those can make existing keys inaccessible.
 
 ### 1. Create a key
 
@@ -305,6 +311,14 @@ tests the shared code and launcher, builds Debug/Release, checks the app and
 extension architecture/deployment target, and uploads an unsigned ZIP and logs.
 Hardware Secure Enclave, Touch ID, and browser integration require a signed
 build on a physical Mac.
+
+To keep Apple credentials on your Mac, [sign the downloaded CI app locally](docs/releasing.md#sign-a-downloaded-ci-build-on-your-mac)
+with `Scripts/sign-local.py`. It signs and notarizes a copy using your Keychain.
+
+The optional, manually triggered [Signed release workflow](.github/workflows/release.yml)
+archives, signs with Developer ID, notarizes, and packages a distributable ZIP.
+See [release setup](docs/releasing.md) for the required Apple credentials and
+GitHub environment secrets.
 
 ## Maintenance and troubleshooting
 

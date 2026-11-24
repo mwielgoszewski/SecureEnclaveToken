@@ -32,6 +32,12 @@ DerivedData/
 *.dSYM.zip
 *.dSYM
 
+# Keep distribution credentials local (or in optional CI secrets), never in source.
+*.p12
+*.p8
+*.provisionprofile
+*.mobileprovision
+
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
