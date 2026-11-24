@@ -29,7 +29,7 @@
       <div class="hero-copy">
         <h1 id="hero-title">Secure Enclave Token</h1>
         <p class="hero-description">Create and manage keys in your Mac’s Secure Enclave. Use them for SSH and client certificate authentication, with a macOS app and command-line interface.</p>
-        <div class="actions"><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip">Download for Mac</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a></div>
+        <div class="actions"><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip">Download for Mac</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken#building">Build from source</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken#readme">Documentation</a></div>
         <p class="compatibility">Version 3.0 · Apple Silicon · macOS Tahoe 26 or later</p>
       </div>
       <img class="hero-icon" src="assets/app-icon.png" width="1024" height="1024" alt="Silver key inside a charcoal chip" fetchpriority="high">
@@ -86,7 +86,7 @@ setoken token list</code></pre><div class="code-footer">The self-sign command sa
     </section>
 
     <section class="get-started-section" id="get-started" aria-labelledby="start-title"><div class="container start-grid">
-      <div><h2 id="start-title">Download and set up</h2><p>Get the signed and notarized app for Apple Silicon Macs running macOS Tahoe 26 or later. No Xcode or Apple Developer account is needed to use the release.</p><div class="actions"><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip">Download version 3.0</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/tag/v3.0">Release notes</a></div><p><a href="#download-checksum">SHA-256 checksum</a> · <a href="https://github.com/mwielgoszewski/SecureEnclaveToken#building">Build from source</a></p></div>
+      <div><h2 id="start-title">Download and set up</h2><p>Get the signed and notarized app for Apple Silicon Macs running macOS Tahoe 26 or later. No Xcode or Apple Developer account is needed to use the release.</p><div class="actions"><a class="button primary" href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/download/v3.0/SecureEnclaveToken-signed-arm64.zip">Download version 3.0</a><a class="text-link" href="https://github.com/mwielgoszewski/SecureEnclaveToken#building">Build from source</a></div><div class="download-links"><a href="#download-checksum">SHA-256 checksum</a><a href="https://github.com/mwielgoszewski/SecureEnclaveToken/releases/tag/v3.0">Release notes</a></div></div>
       <ol class="setup-list"><li><h3>Install the app</h3><p>Unzip the download, move SecureEnclaveToken.app to Applications, and open it. If the token extension is unavailable, enable it in System Settings → General → Login Items &amp; Extensions → Smart Card Readers, then refresh the app.</p></li><li><h3>Create a key</h3><p>Name the key and choose its availability and authentication policy. These settings are fixed when the key is created.</p></li><li><h3>Add its identity</h3><p>Create a self-signed certificate or import one from your CA. The app associates it with the selected key and publishes the identity.</p></li></ol>
     </div></section>
 

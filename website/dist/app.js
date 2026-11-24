@@ -68,3 +68,20 @@ dialog.addEventListener('click', event => {
   const bounds = dialog.getBoundingClientRect();
   if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
 });
+
+// A fragment link to <details> must also reveal its collapsed contents.
+const checksumDetails = document.getElementById('download-checksum');
+function revealChecksum() {
+  checksumDetails.open = true;
+  checksumDetails.querySelector('summary').focus({ preventScroll: true });
+}
+document.querySelectorAll('a[href="#download-checksum"]').forEach(link => {
+  link.addEventListener('click', revealChecksum);
+});
+function revealChecksumFromHash() {
+  if (window.location.hash !== '#download-checksum') return;
+  revealChecksum();
+  checksumDetails.scrollIntoView({ block: 'start' });
+}
+window.addEventListener('hashchange', revealChecksumFromHash);
+revealChecksumFromHash();

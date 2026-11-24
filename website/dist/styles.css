@@ -78,6 +78,8 @@ pre code { font: inherit; }
 .get-started-section { border-block: 1px solid var(--line); background: var(--surface); padding-block: 56px; }
 .start-grid { display: grid; grid-template-columns: .85fr 1.2fr; gap: 80px; }
 .start-grid > div > p { color: var(--muted); font-size: 16px; }
+.download-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 24px; }
+.download-links a { display: inline-flex; align-items: center; min-height: 32px; font-size: 15px; color: var(--accent); }
 .setup-list { padding-left: 24px; margin: 0; }
 .setup-list li { padding-left: 10px; margin-bottom: 24px; }
 .setup-list li:last-child { margin-bottom: 0; }
